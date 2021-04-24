@@ -1,0 +1,1484 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>NetAutoTsExport</title>
+        <style>
+/* From extension bierner.markdown-checkbox */
+.contains-task-list {
+    padding-left: 0;
+}
+
+.contains-task-list li {
+    margin-left: 24px;
+}
+
+.contains-task-list .task-list-item {
+    list-style: none;
+    padding-left: 0;
+    margin-left: 0;
+}
+
+.contains-task-list .contains-task-list {
+    padding-left: 20px;
+} 
+/* From extension bierner.markdown-preview-github-styles */
+body {
+    background: white;
+}
+
+.vscode-body {
+    box-sizing: border-box;
+    min-width: 200px;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 40px;
+    border: 1px solid transparent;
+}
+
+.vscode-body blockquote {
+    background-color: initial;
+}
+
+.vscode-body pre {
+    color: initial;
+    background: #f7f7f7 !important;
+}
+
+.vscode-body code {
+    color: inherit;
+}
+
+.vscode-body pre code {
+    color: initial;
+}
+
+.vscode-body code > div {
+    background: none
+}
+
+.vscode-body table th,
+.vscode-body table td {
+    border: 1px solid #ddd !important;
+}
+
+.vscode-body.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-body.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-body.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-body p,
+.vscode-body blockquote,
+.vscode-body ul,
+.vscode-body ol,
+.vscode-body dl,
+.vscode-body table,
+.vscode-body pre {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+body.vscode-body::-webkit-scrollbar {
+    background-color: white;
+}
+body.vscode-body::-webkit-scrollbar-thumb {
+    background-color: rgba(100, 100, 100, 0.4);
+}
+body.vscode-body::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(100, 100, 100, 0.7);
+}
+
+/* Generated from 'node_modules/github-markdown-css/github-markdown.css' */
+.vscode-body .octicon {
+  display: inline-block;
+  fill: currentColor;
+  vertical-align: text-bottom;
+}
+
+.vscode-body .anchor {
+  float: left;
+  line-height: 1;
+  margin-left: -20px;
+  padding-right: 4px;
+}
+
+.vscode-body .anchor:focus {
+  outline: none;
+}
+
+.vscode-body h1 .octicon-link,
+.vscode-body h2 .octicon-link,
+.vscode-body h3 .octicon-link,
+.vscode-body h4 .octicon-link,
+.vscode-body h5 .octicon-link,
+.vscode-body h6 .octicon-link {
+  color: #1b1f23;
+  vertical-align: middle;
+  visibility: hidden;
+}
+
+.vscode-body h1:hover .anchor,
+.vscode-body h2:hover .anchor,
+.vscode-body h3:hover .anchor,
+.vscode-body h4:hover .anchor,
+.vscode-body h5:hover .anchor,
+.vscode-body h6:hover .anchor {
+  text-decoration: none;
+}
+
+.vscode-body h1:hover .anchor .octicon-link,
+.vscode-body h2:hover .anchor .octicon-link,
+.vscode-body h3:hover .anchor .octicon-link,
+.vscode-body h4:hover .anchor .octicon-link,
+.vscode-body h5:hover .anchor .octicon-link,
+.vscode-body h6:hover .anchor .octicon-link {
+  visibility: visible;
+}
+
+.vscode-body h1:hover .anchor .octicon-link:before,
+.vscode-body h2:hover .anchor .octicon-link:before,
+.vscode-body h3:hover .anchor .octicon-link:before,
+.vscode-body h4:hover .anchor .octicon-link:before,
+.vscode-body h5:hover .anchor .octicon-link:before,
+.vscode-body h6:hover .anchor .octicon-link:before {
+  width: 16px;
+  height: 16px;
+  content: ' ';
+  display: inline-block;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' version='1.1' width='16' height='16' aria-hidden='true'%3E%3Cpath fill-rule='evenodd' d='M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z'%3E%3C/path%3E%3C/svg%3E");
+}.vscode-body {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  line-height: 1.5;
+  color: #24292e;
+  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  font-size: 16px;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+.vscode-body details {
+  display: block;
+}
+
+.vscode-body summary {
+  display: list-item;
+}
+
+.vscode-body a {
+  background-color: initial;
+}
+
+.vscode-body a:active,
+.vscode-body a:hover {
+  outline-width: 0;
+}
+
+.vscode-body strong {
+  font-weight: inherit;
+  font-weight: bolder;
+}
+
+.vscode-body h1 {
+  font-size: 2em;
+  margin: .67em 0;
+}
+
+.vscode-body img {
+  border-style: none;
+}
+
+.vscode-body code,
+.vscode-body kbd,
+.vscode-body pre {
+  font-family: monospace,monospace;
+  font-size: 1em;
+}
+
+.vscode-body hr {
+  box-sizing: initial;
+  height: 0;
+  overflow: visible;
+}
+
+.vscode-body input {
+  font: inherit;
+  margin: 0;
+}
+
+.vscode-body input {
+  overflow: visible;
+}
+
+.vscode-body [type=checkbox] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.vscode-body * {
+  box-sizing: border-box;
+}
+
+.vscode-body input {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.vscode-body a {
+  color: #0366d6;
+  text-decoration: none;
+}
+
+.vscode-body a:hover {
+  text-decoration: underline;
+}
+
+.vscode-body strong {
+  font-weight: 600;
+}
+
+.vscode-body hr {
+  height: 0;
+  margin: 15px 0;
+  overflow: hidden;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #dfe2e5;
+}
+
+.vscode-body hr:after,
+.vscode-body hr:before {
+  display: table;
+  content: "";
+}
+
+.vscode-body hr:after {
+  clear: both;
+}
+
+.vscode-body table {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+.vscode-body td,
+.vscode-body th {
+  padding: 0;
+}
+
+.vscode-body details summary {
+  cursor: pointer;
+}
+
+.vscode-body kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font: 11px SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+  line-height: 10px;
+  color: #444d56;
+  vertical-align: middle;
+  background-color: #fafbfc;
+  border: 1px solid #d1d5da;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #d1d5da;
+}
+
+.vscode-body h1,
+.vscode-body h2,
+.vscode-body h3,
+.vscode-body h4,
+.vscode-body h5,
+.vscode-body h6 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.vscode-body h1 {
+  font-size: 32px;
+}
+
+.vscode-body h1,
+.vscode-body h2 {
+  font-weight: 600;
+}
+
+.vscode-body h2 {
+  font-size: 24px;
+}
+
+.vscode-body h3 {
+  font-size: 20px;
+}
+
+.vscode-body h3,
+.vscode-body h4 {
+  font-weight: 600;
+}
+
+.vscode-body h4 {
+  font-size: 16px;
+}
+
+.vscode-body h5 {
+  font-size: 14px;
+}
+
+.vscode-body h5,
+.vscode-body h6 {
+  font-weight: 600;
+}
+
+.vscode-body h6 {
+  font-size: 12px;
+}
+
+.vscode-body p {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.vscode-body blockquote {
+  margin: 0;
+}
+
+.vscode-body ol,
+.vscode-body ul {
+  padding-left: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.vscode-body ol ol,
+.vscode-body ul ol {
+  list-style-type: lower-roman;
+}
+
+.vscode-body ol ol ol,
+.vscode-body ol ul ol,
+.vscode-body ul ol ol,
+.vscode-body ul ul ol {
+  list-style-type: lower-alpha;
+}
+
+.vscode-body dd {
+  margin-left: 0;
+}
+
+.vscode-body code,
+.vscode-body pre {
+  font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+  font-size: 12px;
+}
+
+.vscode-body pre {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.vscode-body input::-webkit-inner-spin-button,
+.vscode-body input::-webkit-outer-spin-button {
+  margin: 0;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.vscode-body :checked+.radio-label {
+  position: relative;
+  z-index: 1;
+  border-color: #0366d6;
+}
+
+.vscode-body .border {
+  border: 1px solid #e1e4e8!important;
+}
+
+.vscode-body .border-0 {
+  border: 0!important;
+}
+
+.vscode-body .border-bottom {
+  border-bottom: 1px solid #e1e4e8!important;
+}
+
+.vscode-body .rounded-1 {
+  border-radius: 3px!important;
+}
+
+.vscode-body .bg-white {
+  background-color: #fff!important;
+}
+
+.vscode-body .bg-gray-light {
+  background-color: #fafbfc!important;
+}
+
+.vscode-body .text-gray-light {
+  color: #6a737d!important;
+}
+
+.vscode-body .mb-0 {
+  margin-bottom: 0!important;
+}
+
+.vscode-body .my-2 {
+  margin-top: 8px!important;
+  margin-bottom: 8px!important;
+}
+
+.vscode-body .pl-0 {
+  padding-left: 0!important;
+}
+
+.vscode-body .py-0 {
+  padding-top: 0!important;
+  padding-bottom: 0!important;
+}
+
+.vscode-body .pl-1 {
+  padding-left: 4px!important;
+}
+
+.vscode-body .pl-2 {
+  padding-left: 8px!important;
+}
+
+.vscode-body .py-2 {
+  padding-top: 8px!important;
+  padding-bottom: 8px!important;
+}
+
+.vscode-body .pl-3,
+.vscode-body .px-3 {
+  padding-left: 16px!important;
+}
+
+.vscode-body .px-3 {
+  padding-right: 16px!important;
+}
+
+.vscode-body .pl-4 {
+  padding-left: 24px!important;
+}
+
+.vscode-body .pl-5 {
+  padding-left: 32px!important;
+}
+
+.vscode-body .pl-6 {
+  padding-left: 40px!important;
+}
+
+.vscode-body .f6 {
+  font-size: 12px!important;
+}
+
+.vscode-body .lh-condensed {
+  line-height: 1.25!important;
+}
+
+.vscode-body .text-bold {
+  font-weight: 600!important;
+}
+
+.vscode-body .pl-c {
+  color: #6a737d;
+}
+
+.vscode-body .pl-c1,
+.vscode-body .pl-s .pl-v {
+  color: #005cc5;
+}
+
+.vscode-body .pl-e,
+.vscode-body .pl-en {
+  color: #6f42c1;
+}
+
+.vscode-body .pl-s .pl-s1,
+.vscode-body .pl-smi {
+  color: #24292e;
+}
+
+.vscode-body .pl-ent {
+  color: #22863a;
+}
+
+.vscode-body .pl-k {
+  color: #d73a49;
+}
+
+.vscode-body .pl-pds,
+.vscode-body .pl-s,
+.vscode-body .pl-s .pl-pse .pl-s1,
+.vscode-body .pl-sr,
+.vscode-body .pl-sr .pl-cce,
+.vscode-body .pl-sr .pl-sra,
+.vscode-body .pl-sr .pl-sre {
+  color: #032f62;
+}
+
+.vscode-body .pl-smw,
+.vscode-body .pl-v {
+  color: #e36209;
+}
+
+.vscode-body .pl-bu {
+  color: #b31d28;
+}
+
+.vscode-body .pl-ii {
+  color: #fafbfc;
+  background-color: #b31d28;
+}
+
+.vscode-body .pl-c2 {
+  color: #fafbfc;
+  background-color: #d73a49;
+}
+
+.vscode-body .pl-c2:before {
+  content: "^M";
+}
+
+.vscode-body .pl-sr .pl-cce {
+  font-weight: 700;
+  color: #22863a;
+}
+
+.vscode-body .pl-ml {
+  color: #735c0f;
+}
+
+.vscode-body .pl-mh,
+.vscode-body .pl-mh .pl-en,
+.vscode-body .pl-ms {
+  font-weight: 700;
+  color: #005cc5;
+}
+
+.vscode-body .pl-mi {
+  font-style: italic;
+  color: #24292e;
+}
+
+.vscode-body .pl-mb {
+  font-weight: 700;
+  color: #24292e;
+}
+
+.vscode-body .pl-md {
+  color: #b31d28;
+  background-color: #ffeef0;
+}
+
+.vscode-body .pl-mi1 {
+  color: #22863a;
+  background-color: #f0fff4;
+}
+
+.vscode-body .pl-mc {
+  color: #e36209;
+  background-color: #ffebda;
+}
+
+.vscode-body .pl-mi2 {
+  color: #f6f8fa;
+  background-color: #005cc5;
+}
+
+.vscode-body .pl-mdr {
+  font-weight: 700;
+  color: #6f42c1;
+}
+
+.vscode-body .pl-ba {
+  color: #586069;
+}
+
+.vscode-body .pl-sg {
+  color: #959da5;
+}
+
+.vscode-body .pl-corl {
+  text-decoration: underline;
+  color: #032f62;
+}
+
+.vscode-body .mb-0 {
+  margin-bottom: 0!important;
+}
+
+.vscode-body .my-2 {
+  margin-bottom: 8px!important;
+}
+
+.vscode-body .my-2 {
+  margin-top: 8px!important;
+}
+
+.vscode-body .pl-0 {
+  padding-left: 0!important;
+}
+
+.vscode-body .py-0 {
+  padding-top: 0!important;
+  padding-bottom: 0!important;
+}
+
+.vscode-body .pl-1 {
+  padding-left: 4px!important;
+}
+
+.vscode-body .pl-2 {
+  padding-left: 8px!important;
+}
+
+.vscode-body .py-2 {
+  padding-top: 8px!important;
+  padding-bottom: 8px!important;
+}
+
+.vscode-body .pl-3 {
+  padding-left: 16px!important;
+}
+
+.vscode-body .pl-4 {
+  padding-left: 24px!important;
+}
+
+.vscode-body .pl-5 {
+  padding-left: 32px!important;
+}
+
+.vscode-body .pl-6 {
+  padding-left: 40px!important;
+}
+
+.vscode-body .pl-7 {
+  padding-left: 48px!important;
+}
+
+.vscode-body .pl-8 {
+  padding-left: 64px!important;
+}
+
+.vscode-body .pl-9 {
+  padding-left: 80px!important;
+}
+
+.vscode-body .pl-10 {
+  padding-left: 96px!important;
+}
+
+.vscode-body .pl-11 {
+  padding-left: 112px!important;
+}
+
+.vscode-body .pl-12 {
+  padding-left: 128px!important;
+}
+
+.vscode-body hr {
+  border-bottom-color: #eee;
+}
+
+.vscode-body kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font: 11px SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+  line-height: 10px;
+  color: #444d56;
+  vertical-align: middle;
+  background-color: #fafbfc;
+  border: 1px solid #d1d5da;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #d1d5da;
+}
+
+.vscode-body:after,
+.vscode-body:before {
+  display: table;
+  content: "";
+}
+
+.vscode-body:after {
+  clear: both;
+}
+
+.vscode-body>:first-child {
+  margin-top: 0!important;
+}
+
+.vscode-body>:last-child {
+  margin-bottom: 0!important;
+}
+
+.vscode-body a:not([href]) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.vscode-body blockquote,
+.vscode-body details,
+.vscode-body dl,
+.vscode-body ol,
+.vscode-body p,
+.vscode-body pre,
+.vscode-body table,
+.vscode-body ul {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.vscode-body hr {
+  height: .25em;
+  padding: 0;
+  margin: 24px 0;
+  background-color: #e1e4e8;
+  border: 0;
+}
+
+.vscode-body blockquote {
+  padding: 0 1em;
+  color: #6a737d;
+  border-left: .25em solid #dfe2e5;
+}
+
+.vscode-body blockquote>:first-child {
+  margin-top: 0;
+}
+
+.vscode-body blockquote>:last-child {
+  margin-bottom: 0;
+}
+
+.vscode-body h1,
+.vscode-body h2,
+.vscode-body h3,
+.vscode-body h4,
+.vscode-body h5,
+.vscode-body h6 {
+  margin-top: 24px;
+  margin-bottom: 16px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.vscode-body h1 {
+  font-size: 2em;
+}
+
+.vscode-body h1,
+.vscode-body h2 {
+  padding-bottom: .3em;
+  border-bottom: 1px solid #eaecef;
+}
+
+.vscode-body h2 {
+  font-size: 1.5em;
+}
+
+.vscode-body h3 {
+  font-size: 1.25em;
+}
+
+.vscode-body h4 {
+  font-size: 1em;
+}
+
+.vscode-body h5 {
+  font-size: .875em;
+}
+
+.vscode-body h6 {
+  font-size: .85em;
+  color: #6a737d;
+}
+
+.vscode-body ol,
+.vscode-body ul {
+  padding-left: 2em;
+}
+
+.vscode-body ol ol,
+.vscode-body ol ul,
+.vscode-body ul ol,
+.vscode-body ul ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.vscode-body li {
+  word-wrap: break-all;
+}
+
+.vscode-body li>p {
+  margin-top: 16px;
+}
+
+.vscode-body li+li {
+  margin-top: .25em;
+}
+
+.vscode-body dl {
+  padding: 0;
+}
+
+.vscode-body dl dt {
+  padding: 0;
+  margin-top: 16px;
+  font-size: 1em;
+  font-style: italic;
+  font-weight: 600;
+}
+
+.vscode-body dl dd {
+  padding: 0 16px;
+  margin-bottom: 16px;
+}
+
+.vscode-body table {
+  display: block;
+  width: 100%;
+  overflow: auto;
+}
+
+.vscode-body table th {
+  font-weight: 600;
+}
+
+.vscode-body table td,
+.vscode-body table th {
+  padding: 6px 13px;
+  border: 1px solid #dfe2e5;
+}
+
+.vscode-body table tr {
+  background-color: #fff;
+  border-top: 1px solid #c6cbd1;
+}
+
+.vscode-body table tr:nth-child(2n) {
+  background-color: #f6f8fa;
+}
+
+.vscode-body img {
+  max-width: 100%;
+  box-sizing: initial;
+  background-color: #fff;
+}
+
+.vscode-body img[align=right] {
+  padding-left: 20px;
+}
+
+.vscode-body img[align=left] {
+  padding-right: 20px;
+}
+
+.vscode-body code {
+  padding: .2em .4em;
+  margin: 0;
+  font-size: 85%;
+  background-color: rgba(27,31,35,.05);
+  border-radius: 3px;
+}
+
+.vscode-body pre {
+  word-wrap: normal;
+}
+
+.vscode-body pre>code {
+  padding: 0;
+  margin: 0;
+  font-size: 100%;
+  word-break: normal;
+  white-space: pre;
+  background: transparent;
+  border: 0;
+}
+
+.vscode-body .highlight {
+  margin-bottom: 16px;
+}
+
+.vscode-body .highlight pre {
+  margin-bottom: 0;
+  word-break: normal;
+}
+
+.vscode-body .highlight pre,
+.vscode-body pre {
+  padding: 16px;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  background-color: #f6f8fa;
+  border-radius: 3px;
+}
+
+.vscode-body pre code {
+  display: inline;
+  max-width: auto;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  line-height: inherit;
+  word-wrap: normal;
+  background-color: initial;
+  border: 0;
+}
+
+.vscode-body .commit-tease-sha {
+  display: inline-block;
+  font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+  font-size: 90%;
+  color: #444d56;
+}
+
+.vscode-body .full-commit .btn-outline:not(:disabled):hover {
+  color: #005cc5;
+  border-color: #005cc5;
+}
+
+.vscode-body .blob-wrapper {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.vscode-body .blob-wrapper-embedded {
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.vscode-body .blob-num {
+  width: 1%;
+  min-width: 50px;
+  padding-right: 10px;
+  padding-left: 10px;
+  font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+  font-size: 12px;
+  line-height: 20px;
+  color: rgba(27,31,35,.3);
+  text-align: right;
+  white-space: nowrap;
+  vertical-align: top;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.vscode-body .blob-num:hover {
+  color: rgba(27,31,35,.6);
+}
+
+.vscode-body .blob-num:before {
+  content: attr(data-line-number);
+}
+
+.vscode-body .blob-code {
+  position: relative;
+  padding-right: 10px;
+  padding-left: 10px;
+  line-height: 20px;
+  vertical-align: top;
+}
+
+.vscode-body .blob-code-inner {
+  overflow: visible;
+  font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+  font-size: 12px;
+  color: #24292e;
+  word-wrap: normal;
+  white-space: pre;
+}
+
+.vscode-body .pl-token.active,
+.vscode-body .pl-token:hover {
+  cursor: pointer;
+  background: #ffea7f;
+}
+
+.vscode-body .tab-size[data-tab-size="1"] {
+  -moz-tab-size: 1;
+  tab-size: 1;
+}
+
+.vscode-body .tab-size[data-tab-size="2"] {
+  -moz-tab-size: 2;
+  tab-size: 2;
+}
+
+.vscode-body .tab-size[data-tab-size="3"] {
+  -moz-tab-size: 3;
+  tab-size: 3;
+}
+
+.vscode-body .tab-size[data-tab-size="4"] {
+  -moz-tab-size: 4;
+  tab-size: 4;
+}
+
+.vscode-body .tab-size[data-tab-size="5"] {
+  -moz-tab-size: 5;
+  tab-size: 5;
+}
+
+.vscode-body .tab-size[data-tab-size="6"] {
+  -moz-tab-size: 6;
+  tab-size: 6;
+}
+
+.vscode-body .tab-size[data-tab-size="7"] {
+  -moz-tab-size: 7;
+  tab-size: 7;
+}
+
+.vscode-body .tab-size[data-tab-size="8"] {
+  -moz-tab-size: 8;
+  tab-size: 8;
+}
+
+.vscode-body .tab-size[data-tab-size="9"] {
+  -moz-tab-size: 9;
+  tab-size: 9;
+}
+
+.vscode-body .tab-size[data-tab-size="10"] {
+  -moz-tab-size: 10;
+  tab-size: 10;
+}
+
+.vscode-body .tab-size[data-tab-size="11"] {
+  -moz-tab-size: 11;
+  tab-size: 11;
+}
+
+.vscode-body .tab-size[data-tab-size="12"] {
+  -moz-tab-size: 12;
+  tab-size: 12;
+}
+
+.vscode-body .task-list-item {
+  list-style-type: none;
+}
+
+.vscode-body .task-list-item+.task-list-item {
+  margin-top: 3px;
+}
+
+.vscode-body .task-list-item input {
+  margin: 0 .2em .25em -1.6em;
+  vertical-align: middle;
+}
+
+/*
+
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: #333;
+  background: #f8f8f8;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #998;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+  color: #333;
+  font-weight: bold;
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag .hljs-attr {
+  color: #008080;
+}
+
+.hljs-string,
+.hljs-doctag {
+  color: #d14;
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-selector-id {
+  color: #900;
+  font-weight: bold;
+}
+
+.hljs-subst {
+  font-weight: normal;
+}
+
+.hljs-type,
+.hljs-class .hljs-title {
+  color: #458;
+  font-weight: bold;
+}
+
+.hljs-tag,
+.hljs-name,
+.hljs-attribute {
+  color: #000080;
+  font-weight: normal;
+}
+
+.hljs-regexp,
+.hljs-link {
+  color: #009926;
+}
+
+.hljs-symbol,
+.hljs-bullet {
+  color: #990073;
+}
+
+.hljs-built_in,
+.hljs-builtin-name {
+  color: #0086b3;
+}
+
+.hljs-meta {
+  color: #999;
+  font-weight: bold;
+}
+
+.hljs-deletion {
+  background: #fdd;
+}
+
+.hljs-addition {
+  background: #dfd;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+</style>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        
+        
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <h1 id="netautotsexport">NetAutoTsExport</h1>
+<p>本程序能够将 <a href="http://Asp.Net">Asp.Net</a> 或者 .NetCore项目程序集下的控制器以及其输入、输出参数导出为 Typescript 客户端形式，以便于Http客户端调用;<br>
+<strong>注意，本程序不是免费软件。</strong></p>
+<h2 id="程序版本">程序版本</h2>
+<p>本程序有三个版本，分别支持 <strong><a href="http://Asp.Net">Asp.Net</a>(4.5)</strong>, <strong>.NetCore(3.1)</strong>, <strong>.Net(5)</strong><br>
+不带任何参数时，程序将使用图形方式运行；<br>
+当带有指定配置信息的json文件时，程序将以命令行方式运行;</p>
+<h2 id="json配置参数说明">Json配置参数说明</h2>
+<h3 id="assemblydirpath">AssemblyDirPath</h3>
+<p><strong>必须指定。</strong><br>
+指定待扫描的程序集的目录。<br>
+当此目录下存在包含程序集注释的XML文件时，XML文件将一并被扫描以便产生注释。<br>
+注意，<strong>只能指定一个目录路径</strong>。
+例如，<br>
+<code>K:\TotalDevelopNew\TsGenAspnetExample\bin</code></p>
+<h3 id="assemblyxmldirpath">AssemblyXmlDirPath</h3>
+<p><strong>可选</strong><br>
+指定待扫描的包含程序集注释的XML文件的目录。<br>
+注意，<strong>只能指定一个目录路径</strong>。<br>
+例如，<br>
+<code>K:\TotalDevelopNew\TsGenAspnetExample\bin</code></p>
+<h3 id="baseurl">BaseUrl</h3>
+<p><strong>必须指定</strong><br>
+Web项目的基Url，所有控制器都将根据此Url添加后缀路径访问。<br>
+任何时候，你都可以通过如下代码指定 baseUrl, 但我们建议你在 Json 配置文件中指定。</p>
+<pre><code class="language-typescript"><div><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> Root <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/auto/control&#x27;</span>; 
+...
+Root.HongboRootControl.BaseUrl = <span class="hljs-string">&quot;http://localhost/x&quot;</span>;
+</div></code></pre>
+<p>例如，BaseUrl 给定如下的值<br>
+<code>http://localhost/TsGenAspnetExample</code></p>
+<h3 id="defaultmvcroute">DefaultMvcRoute</h3>
+<p><strong>可选</strong>  其默认值是  <code>{controller}/{action}/{id?}</code>。<br>
+默认的MVC路由。请查看 RouteConfig.cs 或者 Startup.cs 代码来找到 默认 MVC 路由值定义。<br>
+任何时候，你都可以通过如下代码指定 baseUrl, 但我们建议你在 Json 配置文件中指定。</p>
+<pre><code class="language-typescript"><div><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> Root <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/auto/control&#x27;</span>; 
+...
+Root.HongboRootControl.DefaulMvctRoute = <span class="hljs-string">&quot;{controller}/{action}/{id?}&quot;</span>;
+</div></code></pre>
+<h3 id="defaultwebapiroute">DefaultWebapiRoute</h3>
+<p><strong>可选</strong>， 其默认值将是 <code>api/{controller}/{id?}</code>
+默认的 WebApi 路由。请查看 WebapiConfig.cs 或者 Startup.cs 代码来找到默认 WebApi 路由值定义。<br>
+任何时候，你都可以通过如下代码指定 baseUrl, 但我们建议你在 Json 配置文件中指定。</p>
+<pre><code class="language-typescript"><div><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> Root <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/auto/control&#x27;</span>; 
+...
+Root.HongboRootControl.DefaulWebapitRoute = <span class="hljs-string">&quot;api/{controller}/{id?}&quot;</span>;
+</div></code></pre>
+<h3 id="allowstringtonull">AllowStringToNull</h3>
+<p>字符串是否允许为null。  默认值为 true。<br>
+如果为 true, 表示字符串允许为 null;<br>
+如果为 false, 则表示不允许字符串为 null;<br>
+这个值影响到字符串属性在 Typescript中的定义。<br>
+例如，</p>
+<pre><code class="language-typescript"><div><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Entity {
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {
+    }
+    <span class="hljs-comment">//propB: null | string; // when AllowStringToNull set to true,</span>
+    propB:  <span class="hljs-built_in">string</span>;         <span class="hljs-comment">// when AllowStringToNull set to false,</span>
+}
+</div></code></pre>
+<h3 id="stringdefaultempty">StringDefaultEmpty</h3>
+<p>字符串是否默认为null。 默认值为 true。<br>
+如果为 true 或者 AllowStringToNull 为false 时, 字符串属性默认将是 空字符串;<br>
+如果为 false, 则如果 AllowStringToNull 为 true 时，其默认值将是 null;<br>
+这个值影响到字符串属性在 Typescript中的定义。<br>
+例如，</p>
+<pre><code class="language-typescript"><div><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Entity {
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {         
+        <span class="hljs-comment">// this.propB = null;  // when AllowStringToNull=true &amp; StringDefaultEmpty=false</span>
+        <span class="hljs-built_in">this</span>.propB = <span class="hljs-string">&#x27;&#x27;</span>;  <span class="hljs-comment">// when StringDefaultEmpty=true or AllowStringToNull=false</span>
+    }
+    <span class="hljs-comment">//propB: null | string; // when AllowStringToNull set to true,</span>
+    propB:  <span class="hljs-built_in">string</span>;         <span class="hljs-comment">// when AllowStringToNull set to false,</span>
+}
+</div></code></pre>
+<h3 id="buildrefererinstance">BuildRefererInstance</h3>
+<p>是否构建关联对象的实例。 默认为 true。<br>
+注意，如果发现循环依赖引用时，即使此属性设置为 true, 属性的默认值还将会是 null。<br>
+例如，</p>
+<pre><code class="language-typescript"><div><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> EntityA {
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) { 
+        <span class="hljs-built_in">this</span>.propB = <span class="hljs-keyword">new</span> EntityB();  <span class="hljs-comment">// when BuildRefererInstance set to true,</span>
+        <span class="hljs-comment">// this.propB = null;        // when BuildRefererInstance set to false,</span>
+        <span class="hljs-built_in">this</span>.propC = <span class="hljs-literal">null</span>;   <span class="hljs-comment">// find the loop depends in EntityA and EntityC.</span>
+    }
+    propB: <span class="hljs-literal">null</span> | EntityB;
+    propC: <span class="hljs-literal">null</span> | EntityC;
+}
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> EntityB {    
+}
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> EntityC {
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-built_in">this</span>.propA = <span class="hljs-literal">null</span>;
+    }
+    propA: <span class="hljs-literal">null</span> | EntityA;
+}
+</div></code></pre>
+<h3 id="exportremark">ExportRemark</h3>
+<p>是否导出实体类、类属性、控制器、Action、Action的输入参数的注释, 默认为 true。<br>
+需要能够找到包含注释的XML文件。</p>
+<h3 id="arraycanbenull">ArrayCanBeNull</h3>
+<p>是否允许数组为 null, 默认为 false;<br>
+当为 true 时，如果属性可以转换为数组，可以将此属性指定为 null;<br>
+此属性影响属性的 Ts定义;</p>
+<pre><code class="language-typescript"><div><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> EntityA {
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) { 
+        <span class="hljs-built_in">this</span>.propB = [];          <span class="hljs-comment">// when ArrayCanBeNull set to false,</span>
+        <span class="hljs-comment">// this.propB = null;     // when ArrayCanBeNull set to true,</span>
+    }
+    propB: <span class="hljs-built_in">Array</span>&lt;<span class="hljs-built_in">string</span>&gt;;        <span class="hljs-comment">// when ArrayCanBeNull set to false,</span>
+    <span class="hljs-comment">// propB: Null_Or_Array&lt;string&gt;;   // when ArrayCanBeNull set to true,</span>
+}
+</div></code></pre>
+<h3 id="producttypenamepropeprty">ProductTypeNamePropeprty</h3>
+<p>是否在导出的实体类中额外增加一个属性（属性名称固定为 <strong>hbTypename</strong>) 来描述原始类在服务端的名称；<br>
+默认为 true。<br>
+当你在服务器端需要根据类型动态处理时，此属性有用。<br>
+例如, 当 ProductTypeNamePropeprty=true时</p>
+<pre><code class="language-typescript"><div><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> EntityA {
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) { 
+        <span class="hljs-built_in">this</span>.hbTypename = <span class="hljs-string">&quot;TsgenExample.Models.EntityA&quot;</span>;
+    }
+    hbTypename: <span class="hljs-built_in">string</span>;
+}
+</div></code></pre>
+<h3 id="productentityinterface">ProductEntityInterface</h3>
+<p>是否产生实体接口。  默认为false<br>
+如果为true,则每一个实体类都将产生一个接口,实体类名称作为接口名称,而实体类将实现此接口,其名称是实体类名称加上Imp。<br>
+如果为false,不会产生接口定义，并且实体类名称直接作为Ts导出的类名称;<br>
+例如, 当 ProductEntityInterface=true 时</p>
+<pre><code class="language-typescript"><div>    <span class="hljs-comment">// tslint:disable-next-line:interface-name &amp; class-name</span>
+    <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> PlaySchemaFullItemGroup {
+        BeginDateTime: <span class="hljs-built_in">Date</span>;
+    }
+    <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> PlaySchemaFullItemGroupImpl <span class="hljs-keyword">implements</span> PlaySchemaFullItemGroup {
+        BeginDateTime: <span class="hljs-built_in">Date</span>;
+        <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {
+            <span class="hljs-built_in">this</span>.BeginDateTime = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-number">-62135596800000</span>+<span class="hljs-number">0800</span>);
+        }
+    }
+</div></code></pre>
+<p>当 ProductEntityInterface=false 时</p>
+<pre><code class="language-typescript"><div>    <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> PlaySchemaFullItemGroupImpl {
+        BeginDateTime: <span class="hljs-built_in">Date</span>;
+        <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {
+            <span class="hljs-built_in">this</span>.BeginDateTime = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-number">-62135596800000</span>+<span class="hljs-number">0800</span>);
+        }
+    }
+</div></code></pre>
+<h3 id="outputfieldsourceinconstruct">OutputFieldSourceInConstruct</h3>
+<p>是否产生字段源说明。默认为 false。<br>
+如果为true,Ts构造函数中将通过注释说明每一个字段的来源。<br>
+如果为false,不会产生。<br>
+例如, 当 OutputFieldSourceInConstruct=true时</p>
+<pre><code class="language-typescript"><div>    <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> PlaySchemaFullItemGroupImpl {
+        BeginDateTime: <span class="hljs-built_in">Date</span>;
+        <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {
+            <span class="hljs-comment">// EhayWebApi -- EhayWebApi.Model -- PlaySchemaFullItemGroup -- BeginDateTime</span>
+            <span class="hljs-built_in">this</span>.BeginDateTime = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-number">-62135596800000</span>+<span class="hljs-number">0800</span>);
+        }
+    }
+</div></code></pre>
+<h3 id="productantijqueryparaminconstruct">ProductAntiJqueryParamInConstruct</h3>
+<p>是否产生防止 JQuery.param 的调用调用代码。 默认为 false。<br>
+JQuery.param 方法将调用类的构造函数，但是传入 null 值进来;<br>
+此时可能会产生异常。<br>
+例如, 当 ProductAntiJqueryParamInConstruct=true时</p>
+<pre><code class="language-typescript"><div><span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">this</span>) <span class="hljs-keyword">return</span>; <span class="hljs-comment">// sometime jquery.param will call this contructor,but transfer null to it</span>
+}
+</div></code></pre>
+<h3 id="definestaticcontrolstance">DefineStaticControlStance</h3>
+<p>是否定义控制器的静态实例。默认为 true。<br>
+控制器静态实例定义在命名空间的底部。<br>
+对于抽象类、或者定义泛型参数的泛型类，不会构建此控制器的实例。<br>
+例如，</p>
+<pre><code class="language-typescript"><div><span class="hljs-keyword">export</span> <span class="hljs-keyword">namespace</span> EhayWebApi.Controllers {
+    ...
+    <span class="hljs-comment">/** define a static instance of RfidCupController */</span>
+    <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> RfidCupInstance: RfidCupController = <span class="hljs-keyword">new</span> RfidCupController();
+}
+</div></code></pre>
+<h3 id="attrforexportmodel">AttrForExportModel</h3>
+<p>定义需要产生 TypeScript 定义的类的标注。默认为 null<br>
+当某一个类没有被任何 Action 通过输入输出参数 使用，默认下这个类不会产生 Typescript 定义。<br>
+可以定义一个 C# 标注类，并将此标注定义在 类上，将标注类的名称赋予  AttrForExportModel, 则此类会产生 TypeScript 定义。<br>
+只需要标注类的名称，不需要命名空间；<br>
+可以定义多个标注类，之间使用逗号间隔。<br>
+例如，AttrForExportModel=<strong>AlwaysExportAttribute</strong></p>
+<pre><code class="language-c#"><div><span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;summary&gt;</span></span>
+<span class="hljs-comment"><span class="hljs-doctag">///</span> 定义一个标注类，包含此标注的类将产生 TypeScript 定义</span>
+<span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;/summary&gt;</span></span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">AlwaysExportAttribute</span> : <span class="hljs-title">Attribute</span>
+{
+}
+<span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;summary&gt;</span></span>
+<span class="hljs-comment"><span class="hljs-doctag">///</span> 实体始终产生 TypeScript 定义，即使其未被任何 Action 使用</span>
+<span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;/summary&gt;</span></span>
+[<span class="hljs-meta">AlwaysExport</span>]
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">EntityAlwaysExport</span>
+{
+}
+</div></code></pre>
+<h3 id="attrsforexceptproperty">AttrsForExceptProperty</h3>
+<p>定义产生 TypeScript 定义的类的标注。默认为 null；<br>
+当某个类被某一个 Action 作为输入输出参数使用时，默认将产生 TypeScript 定义。<br>
+通过上述标注，可以让这个类不产生 TypeScript 定义，而使用 any 代替;<br>
+只需要标注类的名称，不需要命名空间；<br>
+可以定义多个标注类，之间使用逗号间隔。<br>
+例如，AttrsForExceptProperty=<strong>AlwaysIgnoreAttribute</strong></p>
+<pre><code class="language-c#"><div><span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;summary&gt;</span></span>
+<span class="hljs-comment"><span class="hljs-doctag">///</span> 定义一个标注类，包含此标注的类将不产生 TypeScript 定义</span>
+<span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;/summary&gt;</span></span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">AlwaysIgnoreAttribute</span> : <span class="hljs-title">Attribute</span>
+{
+}
+<span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;summary&gt;</span></span>
+<span class="hljs-comment"><span class="hljs-doctag">///</span> 实体始终不会产生 TypeScript 定义，即使其被某一个 Action 使用</span>
+<span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;/summary&gt;</span></span>
+[<span class="hljs-meta">AlwaysIgnore</span>]
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">EntityAlwaysDontExport</span>
+{
+}
+</div></code></pre>
+<h3 id="attrsforjsonresulttypes">AttrsForJsonResultTypes</h3>
+<p>定义某一个 Action 的输出类型。<br>
+当某一个 Action 返回 JsonResult 时，其返回类型只能转换为 any 类型。<br>
+通过上述标注，可以指定Action 实际返回的类型。<br>
+标注应该带有 Type ResultType 属性，以便指定 Action 实际返回的类型。<br>
+例如， AttrsForJsonResultTypes=<strong>JsonResultTypeAttribute</strong></p>
+<pre><code class="language-c#"><div><span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;summary&gt;</span></span>
+<span class="hljs-comment"><span class="hljs-doctag">///</span> 定义一个标注类，其 ResultType 指定 Action 返回的结果类型。</span>
+<span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;/summary&gt;</span></span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">JsonResultTypeAttribute</span> : <span class="hljs-title">Attribute</span>
+{
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">JsonResultTypeAttribute</span>(<span class="hljs-params"></span>)</span>
+        {
+        }
+        <span class="hljs-keyword">public</span> Type ResultType { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+}
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Dog</span> 
+{
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> Name { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+}
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">HomeController</span> : <span class="hljs-title">Controller</span>
+{
+        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;summary&gt;</span></span>
+        <span class="hljs-comment"><span class="hljs-doctag">///</span> 通过 JsonResultType 指定，返回将是 Dog 的实例</span>
+        <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;/summary&gt;</span></span>
+        [<span class="hljs-meta">JsonResultType(ResultType = typeof(Dog))</span>]
+        <span class="hljs-function"><span class="hljs-keyword">public</span> JsonResult <span class="hljs-title">Index</span>(<span class="hljs-params">MyDbContext dbContext</span>)</span>
+        {
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> JsonResult
+            {
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                Data = <span class="hljs-keyword">new</span> Dog
+                {
+                    Name = <span class="hljs-string">&quot;Xiaomao&quot;</span>,
+                }
+            };
+        }
+}
+</div></code></pre>
+<h3 id="sendrequesttype">SendRequestType</h3>
+<p>发送 Http 请求的客户端库。 暂时支持如下的库。</p>
+<h4 id="1-axios">1. Axios</h4>
+<p>see <a href="http://www.axios-js.com/">http://www.axios-js.com/</a></p>
+<h4 id="2-jquery">2. Jquery</h4>
+<p>see <a href="https://jquery.com/">https://jquery.com/</a></p>
+<h4 id="3-browserfetch">3. BrowserFetch</h4>
+<p>see <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API">https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API</a></p>
+<h4 id="4-uniapprequest">4. UniAppRequest</h4>
+<p>see <a href="https://uniapp.dcloud.io/api/README">https://uniapp.dcloud.io/api/README</a></p>
+<h4 id="5-wechatlittleapp">5. WechatLittleApp</h4>
+<p>see <a href="https://developers.weixin.qq.com/miniprogram/dev/api/">https://developers.weixin.qq.com/miniprogram/dev/api/</a></p>
+<p>不同的库，将会产生不同的 import 引用 和 发送请求的 TypeScript 代码；</p>
+<h3 id="exportdirpath">ExportDirPath</h3>
+<p>定义导出的 TypeScript 文件的目录</p>
+
+    </body>
+    </html>
