@@ -1,18 +1,19 @@
 [TOC]
-# NetAutoTsExport
+<style>.md-toc {z-index: 999; display: block; position: fixed;left: 6px;top:20px;width:300px;word-wrap: break-word; word-break:break-all; overflow: hidden; } </style>
+# 1. NetAutoTsExport
 
 本程序能够将 Asp.Net 或者 .NetCore项目程序集下的控制器以及其输入、输出参数导出为 Typescript 客户端形式，以便于Http客户端调用;  
 __注意，本程序不是免费软件。__
   
-## 程序版本
+## 1.1 程序版本
 
 本程序有三个版本，分别支持 __Asp.Net(4.5)__, __.NetCore(3.1)__, __.Net(5)__  
 不带任何参数时，程序将使用图形方式运行；  
 当带有指定配置信息的json文件时，程序将以命令行方式运行;
 
-## Json配置参数说明
+## 1.2 Json配置参数说明
 
-### AssemblyDirPath
+### 1.2.1 AssemblyDirPath
 
 __必须指定。__  
 指定待扫描的程序集的目录。  
@@ -21,7 +22,7 @@ __必须指定。__
 例如，  
 `K:\TotalDevelopNew\TsGenAspnetExample\bin`
 
-### AssemblyXmlDirPath
+### 1.2.2 AssemblyXmlDirPath
 
 __可选__  
 指定待扫描的包含程序集注释的XML文件的目录。  
@@ -29,7 +30,7 @@ __可选__
 例如，  
 `K:\TotalDevelopNew\TsGenAspnetExample\bin`  
 
-### BaseUrl
+### 1.2.3 BaseUrl
 
 __必须指定__  
 Web项目的基Url，所有控制器都将根据此Url添加后缀路径访问。  
@@ -44,7 +45,7 @@ Root.HongboRootControl.BaseUrl = "http://localhost/x";
 例如，BaseUrl 给定如下的值  
 `http://localhost/TsGenAspnetExample`
 
-### DefaultMvcRoute
+### 1.2.4 DefaultMvcRoute
 
 __可选__  其默认值是  `{controller}/{action}/{id?}`。  
 默认的MVC路由。请查看 RouteConfig.cs 或者 Startup.cs 代码来找到 默认 MVC 路由值定义。  
@@ -56,7 +57,7 @@ import * as Root from '@/auto/control';
 Root.HongboRootControl.DefaulMvctRoute = "{controller}/{action}/{id?}";
 ```
 
-### DefaultWebapiRoute
+### 1.2.5 DefaultWebapiRoute
 
 __可选__， 其默认值将是 `api/{controller}/{id?}`
 默认的 WebApi 路由。请查看 WebapiConfig.cs 或者 Startup.cs 代码来找到默认 WebApi 路由值定义。  
@@ -68,7 +69,7 @@ import * as Root from '@/auto/control';
 Root.HongboRootControl.DefaulWebapitRoute = "api/{controller}/{id?}";
 ```
 
-### AllowStringToNull
+### 1.2.6 AllowStringToNull
 
 字符串是否允许为null。  默认值为 true。  
 如果为 true, 表示字符串允许为 null;  
@@ -85,7 +86,7 @@ export class Entity {
 }
 ```
 
-### StringDefaultEmpty
+### 1.2.7 StringDefaultEmpty
 
 字符串是否默认为null。 默认值为 true。  
 如果为 true 或者 AllowStringToNull 为false 时, 字符串属性默认将是 空字符串;  
@@ -104,7 +105,7 @@ export class Entity {
 }
 ```
 
-### BuildRefererInstance
+### 1.2.8 BuildRefererInstance
 
 是否构建关联对象的实例。 默认为 true。  
 注意，如果发现循环依赖引用时，即使此属性设置为 true, 属性的默认值还将会是 null。  
@@ -130,12 +131,12 @@ export class EntityC {
 }
 ```
 
-### ExportRemark
+### 1.2.9 ExportRemark
 
 是否导出实体类、类属性、控制器、Action、Action的输入参数的注释, 默认为 true。  
 需要能够找到包含注释的XML文件。  
 
-### ArrayCanBeNull
+### 1.2.10 ArrayCanBeNull
 
 是否允许数组为 null, 默认为 false;  
 当为 true 时，如果属性可以转换为数组，可以将此属性指定为 null;  
@@ -152,7 +153,7 @@ export class EntityA {
 }
 ```
 
-### ProductTypeNamePropeprty
+### 1.2.11 ProductTypeNamePropeprty
 
 是否在导出的实体类中额外增加一个属性（属性名称固定为 __hbTypename__) 来描述原始类在服务端的名称；  
 默认为 true。  
@@ -168,7 +169,7 @@ export class EntityA {
 }
 ```
 
-### ProductEntityInterface
+### 1.2.12 ProductEntityInterface
 
 是否产生实体接口。  默认为false  
 如果为true,则每一个实体类都将产生一个接口,实体类名称作为接口名称,而实体类将实现此接口,其名称是实体类名称加上Imp。  
@@ -199,7 +200,7 @@ export class EntityA {
     }
 ```
 
-### OutputFieldSourceInConstruct
+### 1.2.13 OutputFieldSourceInConstruct
 
 是否产生字段源说明。默认为 false。  
 如果为true,Ts构造函数中将通过注释说明每一个字段的来源。  
@@ -216,7 +217,7 @@ export class EntityA {
     }
 ```
 
-### ProductAntiJqueryParamInConstruct
+### 1.2.14 ProductAntiJqueryParamInConstruct
 
 是否产生防止 JQuery.param 的调用调用代码。 默认为 false。  
 JQuery.param 方法将调用类的构造函数，但是传入 null 值进来;  
@@ -229,7 +230,7 @@ constructor() {
 }
 ```
 
-### DefineStaticControlStance  
+### 1.2.15 DefineStaticControlStance  
 
 是否定义控制器的静态实例。默认为 true。  
 控制器静态实例定义在命名空间的底部。  
@@ -244,7 +245,7 @@ export namespace EhayWebApi.Controllers {
 }
 ```
 
-### AttrForExportModel  
+### 1.2.16 AttrForExportModel  
 
 定义需要产生 TypeScript 定义的类的标注。默认为 null  
 当某一个类没有被任何 Action 通过输入输出参数 使用，默认下这个类不会产生 Typescript 定义。  
@@ -269,7 +270,7 @@ public class EntityAlwaysExport
 }
 ```
 
-### AttrsForExceptProperty
+### 1.2.17 AttrsForExceptProperty
 
 定义产生 TypeScript 定义的类的标注。默认为 null；  
 当某个类被某一个 Action 作为输入输出参数使用时，默认将产生 TypeScript 定义。  
@@ -294,7 +295,7 @@ public class EntityAlwaysDontExport
 }
 ```
 
-### AttrsForJsonResultTypes
+### 1.2.18 AttrsForJsonResultTypes
 
 定义某一个 Action 的输出类型。  
 当某一个 Action 返回 JsonResult 时，其返回类型只能转换为 any 类型。  
@@ -337,32 +338,32 @@ public class HomeController : Controller
 }
 ```
 
-### SendRequestType  
+### 1.2.19 SendRequestType  
 
 发送 Http 请求的客户端库。 暂时支持如下的库。  
 
-#### Axios
+#### 1.2.19.1 Axios
 
    see <http://www.axios-js.com/>  
 
-#### Jquery
+#### 1.2.19.2 Jquery
 
    see <https://jquery.com/>  
 
-#### BrowserFetch
+#### 1.2.19.3 BrowserFetch
 
    see <https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API>  
 
-#### UniAppRequest
+#### 1.2.19.4 UniAppRequest
 
    see <https://uniapp.dcloud.io/api/README>  
 
-#### WechatLittleApp  
+#### 1.2.19.5 WechatLittleApp  
 
    see <https://developers.weixin.qq.com/miniprogram/dev/api/>  
 
 不同的库，将会产生不同的 import 引用 和 发送请求的 TypeScript 代码；  
 
-### ExportDirPath  
+### 1.2.20 ExportDirPath  
 
 定义导出的 TypeScript 文件的目录  
