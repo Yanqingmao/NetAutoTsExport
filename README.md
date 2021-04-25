@@ -1,21 +1,22 @@
 [TOC]
 <style>.md-toc {z-index: 999; display: block; position: fixed;left: 6px;top:20px;width:300px;word-wrap: break-word; word-break:break-all; overflow: hidden; } </style>
-# NetAutoTsExport
+<style>.md-toc {z-index: 999; display: block; position: fixed;left: 6px;top:20px;width:300px;word-wrap: break-word; word-break:break-all; overflow: hidden; } </style>
+# 1. NetAutoTsExport
 
 This program can export the controller and its action(include the parameter of in or out) to TypeScript code.  
 It will be very heplful to access the server action in browser.  
 __attension, this program is not free。__
 
-## Program Version
+## 1.1 Program Version
 
 This program support  __Asp.Net(4.5)__, __.NetCore(3.1)__, __.Net(5)__ .  
 When run without any arguments, it will run as windows form.  
 or else, it should assign a json file.  
 By default, it will lookup the json file in the same director of program.  
 
-## Json Configuration Parameter
+## 1.2 Json Configuration Parameter
 
-### AssemblyDirPath
+### 1.2.1 AssemblyDirPath
 
 __Must Assign__  
 Assign the directory which contains all the assemblys of csharp.  
@@ -25,7 +26,7 @@ Attention, You can __assing only one directory__.
 For example，  
 `K:\TotalDevelopNew\TsGenAspnetExample\bin`
 
-### AssemblyXmlDirPath
+### 1.2.2 AssemblyXmlDirPath
 
 __Optional__  
 Assign the directory which contains the xml file that is built as a remark of assembly.  
@@ -33,7 +34,7 @@ Attention, You can __assing only one directory__.
 For example，  
 `K:\TotalDevelopNew\TsGenAspnetExample\`  
 
-### BaseUrl
+### 1.2.3 BaseUrl
 
 __Must Assign__  
 The base url of web project.  
@@ -49,7 +50,7 @@ Root.HongboRootControl.BaseUrl = "http://localhost/x";
 for example, you can assign BaseUrl as follows value.  
 `http://localhost/TsGenAspnetExample`
 
-### DefaultMvcRoute
+### 1.2.4 DefaultMvcRoute
 
 __Optional__,  the default value will be "{controller}/{action}/{id?}".  
 You can see the RouteConfig.cs or Startup.cs for the default MVC route value.  
@@ -61,7 +62,7 @@ import * as Root from '@/auto/control';
 Root.HongboRootControl.DefaulMvctRoute = "{controller}/{action}/{id?}";
 ```
 
-### DefaultWebapiRoute
+### 1.2.5 DefaultWebapiRoute
 
 __Optional__, the default value will be "api/{controller}/{id?}".  
 You can see the WebapiConfig.cs or Startup.cs for the default WebApi route value.  
@@ -73,7 +74,7 @@ import * as Root from '@/auto/control';
 Root.HongboRootControl.DefaulWebapitRoute = "{controller}/{action}/{id?}";
 ```
 
-### AllowStringToNull
+### 1.2.6 AllowStringToNull
 
 Whether the string property can be null; the default value is true;  
 if true, the property can be null;  
@@ -90,7 +91,7 @@ export class Entity {
 }
 ```
 
-### StringDefaultEmpty
+### 1.2.7 StringDefaultEmpty
 
 Whether the default value of string property would be empty string.  The default value is true.  
 if true or AllowStringToNull=false,  the default value of string property would be empty string;  
@@ -108,7 +109,7 @@ export class Entity {
 }
 ```
 
-### BuildRefererInstance
+### 1.2.8 BuildRefererInstance
 
 Whether build a instance when property is relate to other type definition.  
 The default value is true.  
@@ -135,12 +136,12 @@ export class EntityC {
 }
 ```
 
-### ExportRemark
+### 1.2.9 ExportRemark
 
 Whether export the remark for exported content. The default value is true.  
 You must assign the directory which contains the xml file which contains remarks for the assemblys.  
 
-### ArrayCanBeNull
+### 1.2.10 ArrayCanBeNull
 
 Whether the array can be null. the default will be false.
 
@@ -155,7 +156,7 @@ export class EntityA {
 }
 ```
 
-### produceTypeNamePropeprty
+### 1.2.11 produceTypeNamePropeprty
 
 Whether add another property for the type name of csharp. The default value is true.  
 The name of extra property is __hbTypename__.  
@@ -170,7 +171,7 @@ export class EntityA {
 }
 ```
 
-### produceEntityInterface
+### 1.2.12 produceEntityInterface
 
 Whether produce the interface definition for every type. The default value is false.  
 If true, will produce TypeScript interface definition for every type, and produce a TypeScript implement class for this interface with a Imp appenx.  
@@ -201,7 +202,7 @@ when produceEntityInterface=false
     }
 ```
 
-### OutputFieldSourceInConstruct
+### 1.2.13 OutputFieldSourceInConstruct
 
 Whether produce original source for the property in the constructor.  The default value is false.  
 For example, when OutputFieldSourceInConstruct=true  
@@ -216,7 +217,7 @@ For example, when OutputFieldSourceInConstruct=true
     }
 ```
 
-### produceAntiJqueryParamInConstruct
+### 1.2.14 produceAntiJqueryParamInConstruct
 
 Whether produce code for anti the JQuery.query funciton.  The default value is false.  
 Sometimes, JQuery.param will call the constructor function for the type, but transfer a null as this.  
@@ -230,7 +231,7 @@ constructor() {
 }
 ```
 
-### DefineStaticControlStance
+### 1.2.15 DefineStaticControlStance
 
 Whether defined a static instance for every controller which can be instanced. The default value is true.  
 This will be more convinient for access the action in every controller.  
@@ -245,7 +246,7 @@ export namespace EhayWebApi.Controllers {
 }
 ```
 
-### AttrForExportModel
+### 1.2.16 AttrForExportModel
 
 Define attributes for export one type even if this type is not used by any action.  
 When a type is not accessed by an action with the in-out parameter, it would exported to TypeScript.  
@@ -269,7 +270,7 @@ public class EntityAlwaysExport
 }
 ```
 
-### AttrsForExceptProperty
+### 1.2.17 AttrsForExceptProperty
 
 Define attributes for ignore one type even if this type is used by an a ction.  
 When a type is accessed by an action with the in-out parameter, it would exported to TypeScript.  
@@ -295,7 +296,7 @@ public class EntityAlwaysDontExport
 }
 ```
 
-### AttrsForJsonResultTypes
+### 1.2.18 AttrsForJsonResultTypes
 
 Define attributes to assign an return type for an action.  
 The attribute should contain ResultType property.  
@@ -339,34 +340,34 @@ public class HomeController : Controller
 }
 ```
 
-### SendRequestType  
+### 1.2.19 SendRequestType  
 
 How send the rquest to the server.  
 It supported the followed javascript library.
 
-#### 1. Axios
+#### 1.2.19.1 1. Axios
 
    see <http://www.axios-js.com/>  
 
-#### 2. Jquery
+#### 1.2.19.2 2. Jquery
 
    see <https://jquery.com/>  
 
-#### 3. BrowserFetch
+#### 1.2.19.3 3. BrowserFetch
 
    see <https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API>  
 
-#### 4. UniAppRequest
+#### 1.2.19.4 4. UniAppRequest
 
    see <https://uniapp.dcloud.io/api/README>  
 
-#### 5. WechatLittleApp  
+#### 1.2.19.5 5. WechatLittleApp  
 
    see <https://developers.weixin.qq.com/miniprogram/dev/api/>  
 
 Different library will produce different import and TypeScript code to send the request to server;
 
-### ExportDirPath  
+### 1.2.20 ExportDirPath  
 
 assign directory to save the TypeScript file.  
 __Must Assign__  
