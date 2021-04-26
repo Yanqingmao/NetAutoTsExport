@@ -102,8 +102,8 @@ def create_markdown_file_with_number(f,file_name):
 ''')
     f.close()
     lines_in_file_with_number = create_lines_with_number(lines_in_file)
-    # 根据原文件名生成标题添加了序号的文件的文件名
-    markdown_file_with_number = os.getcwd() + '\\html\\' + file_name[::-1].split('.',1)[1][::-1] + '.md'
+    # 根据原文件名生成标题添加了序号的文件的文件名, 文件存放到父目录。
+    markdown_file_with_number = os.getcwd() + '\\..\\' + file_name[::-1].split('.',1)[1][::-1] + '.md'
     if not 1 == 0: # not os.path.exists(markdown_file_with_number):
         with open(markdown_file_with_number, 'w+',encoding='utf-8') as f:
             for line in lines_in_file_with_number:
