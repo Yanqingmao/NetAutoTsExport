@@ -1,15 +1,45 @@
+
+<style>.md-toc {z-index: 999; display: block; position: fixed;left: 6px;top:10px;width:350px;word-wrap: break-word; /* word-break:break-all; */ overflow: scroll; } .md-toc-item { margin-right: 40px; }   </style>
 [TOC]
-<style>.md-toc {z-index: 999; display: block; position: fixed;left: 6px;top:20px;width:300px;word-wrap: break-word; word-break:break-all; overflow: hidden; } </style>
 # 1. NetAutoTsExport
 
 本程序能够将 Asp.Net 或者 .NetCore项目程序集下的控制器以及其输入、输出参数导出为 Typescript 客户端形式，以便于Http客户端调用;  
 __注意，本程序不是免费软件。__
+
+see __<https://yanqingmao.github.io/NetAutoTsExport/html/faq.zh-cn.html>__
   
 ## 1.1 程序版本
 
-本程序有三个版本，分别支持 __Asp.Net(4.5)__, __.NetCore(3.1)__, __.Net(5)__  
-不带任何参数时，程序将使用图形方式运行；  
-当带有指定配置信息的json文件时，程序将以命令行方式运行;
+本程序有三个版本
+
+### 1.1.1 Asp.Net(4.5 Or Greater)  
+
+支持 .NetFramework 4.5 或者以上版本.
+
+https://yanqingmao.github.io/NetAutoTsExport/html/NetAutoTsExport_NetFramework_Console.zip 
+命令行方式，需要指定导出配置文件的路径.
+
+https://yanqingmao.github.io/NetAutoTsExport/html/NetAutoTsExport_NetFramework_WinForm.zip 
+Windows 窗口方式运行.
+
+### 1.1.2 .NetCore3.1
+
+支持 .NetCore3.1 或者以下版本
+
+https://yanqingmao.github.io/NetAutoTsExport/html/NetAutoTsExport_NetCore3_Console.zip 
+命令行方式，需要指定导出配置文件的路径.
+
+https://yanqingmao.github.io/NetAutoTsExport/html/NetAutoTsExport_NetCore3_WinForm.zip 
+Windows 窗口方式运行.
+
+### 1.1.3 .Net5
+
+支持 .Net5 或者以下版本
+https://yanqingmao.github.io/NetAutoTsExport/html/NetAutoTsExport_Net5_Console.zip 
+命令行方式，需要指定导出配置文件的路径.
+
+https://yanqingmao.github.io/NetAutoTsExport/html/NetAutoTsExport_Net5_WinForm.zip 
+Windows 窗口方式运行.
 
 ## 1.2 Json配置参数说明
 
@@ -245,7 +275,39 @@ export namespace EhayWebApi.Controllers {
 }
 ```
 
-### 1.2.16 AttrForExportModel  
+### 1.2.16 UseCamelPropertyName
+
+导出类的属性名称是否使用 camel方式；  
+如果为 true, 类的属性名称使用 camel方式。  
+如果为 true, 类的属性保留原始名称。  
+例如， 如果 UseCamelPropertyName = true  
+
+```c#
+public class Entity 
+{
+   public string Name {get; set; 
+}
+```
+
+```typescript
+export class Entity {
+    constructor() { 
+        this.name = """";
+    }
+    name: Null_Or_String; // Name 将变为 name
+}
+```
+
+### 1.2.17 LimitControlTypes
+
+限制需要导出的控制器，使用正则表达式方式。  
+如果定义有合法的正则表达式，则只有 "命名空间.类名称 " 匹配此正则表达式的控制器才会导出。  
+例如的是，如果某一个控制器需要导出，则其父控制器将忽略此限制而将一并导出。  
+例如，  
+`LimitControlTypes=__^Ehay[.]Controllers[.].*$`  
+限制只有 Ehay.Controllers 命名空间下的控制器才会导出。
+
+### 1.2.18 AttrForExportModel  
 
 定义需要产生 TypeScript 定义的类的标注。默认为 null  
 当某一个类没有被任何 Action 通过输入输出参数 使用，默认下这个类不会产生 Typescript 定义。  
@@ -270,7 +332,7 @@ public class EntityAlwaysExport
 }
 ```
 
-### 1.2.17 AttrsForExceptProperty
+### 1.2.19 AttrsForExceptProperty
 
 定义产生 TypeScript 定义的类的标注。默认为 null；  
 当某个类被某一个 Action 作为输入输出参数使用时，默认将产生 TypeScript 定义。  
@@ -295,7 +357,7 @@ public class EntityAlwaysDontExport
 }
 ```
 
-### 1.2.18 AttrsForJsonResultTypes
+### 1.2.20 AttrsForJsonResultTypes
 
 定义某一个 Action 的输出类型。  
 当某一个 Action 返回 JsonResult 时，其返回类型只能转换为 any 类型。  
@@ -338,32 +400,32 @@ public class HomeController : Controller
 }
 ```
 
-### 1.2.19 SendRequestType  
+### 1.2.21 SendRequestType  
 
 发送 Http 请求的客户端库。 暂时支持如下的库。  
 
-#### 1.2.19.1 Axios
+#### 1.2.21.1 Axios
 
    see <http://www.axios-js.com/>  
 
-#### 1.2.19.2 Jquery
+#### 1.2.21.2 Jquery
 
    see <https://jquery.com/>  
 
-#### 1.2.19.3 BrowserFetch
+#### 1.2.21.3 BrowserFetch
 
    see <https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API>  
 
-#### 1.2.19.4 UniAppRequest
+#### 1.2.21.4 UniAppRequest
 
    see <https://uniapp.dcloud.io/api/README>  
 
-#### 1.2.19.5 WechatLittleApp  
+#### 1.2.21.5 WechatLittleApp  
 
    see <https://developers.weixin.qq.com/miniprogram/dev/api/>  
 
 不同的库，将会产生不同的 import 引用 和 发送请求的 TypeScript 代码；  
 
-### 1.2.20 ExportDirPath  
+### 1.2.22 ExportDirPath  
 
 定义导出的 TypeScript 文件的目录  

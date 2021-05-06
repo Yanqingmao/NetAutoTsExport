@@ -1,17 +1,45 @@
+
 [TOC]
-<style>.md-toc {z-index: 999; display: block; position: fixed;left: 6px;top:20px;width:300px;word-wrap: break-word; word-break:break-all; overflow: hidden; } </style>
 # NetAutoTsExport
 
 This program can export the controller and its action(include the parameter of in or out) to TypeScript code.  
 It will be very heplful to access the server action in browser.  
 __attension, this program is not free。__
 
+see __<https://yanqingmao.github.io/NetAutoTsExport/html/faq.html>__
+
 ## Program Version
 
-This program support  __Asp.Net(4.5)__, __.NetCore(3.1)__, __.Net(5)__ .  
-When run without any arguments, it will run as windows form.  
-or else, it should assign a json file.  
-By default, it will lookup the json file in the same director of program.  
+This program support  
+
+### Asp.Net(4.5 Or Greater)  
+
+support .NetFramework 4.5 or greater version.  
+
+https://yanqingmao.github.io/NetAutoTsExport/html/NetAutoTsExport_NetFramework_Console.zip 
+run in console, must assign the Export Configuration Json file path.
+
+https://yanqingmao.github.io/NetAutoTsExport/html/NetAutoTsExport_NetFramework_WinForm.zip 
+run with Windows Form.
+
+### .NetCore3.1
+
+support .NetCore3.1 or lower version.
+
+https://yanqingmao.github.io/NetAutoTsExport/html/NetAutoTsExport_NetCore3_Console.zip 
+run in console, must assign the Export Configuration Json file path.
+
+https://yanqingmao.github.io/NetAutoTsExport/html/NetAutoTsExport_NetCore3_WinForm.zip 
+run with Windows Form.
+
+### .Net5
+
+support .Net5 or lower version.
+https://yanqingmao.github.io/NetAutoTsExport/html/NetAutoTsExport_Net5_Console.zip 
+run in console, must assign the Export Configuration Json file path.
+
+https://yanqingmao.github.io/NetAutoTsExport/html/NetAutoTsExport_Net5_WinForm.zip 
+run with Windows Form.
 
 ## Json Configuration Parameter
 
@@ -244,6 +272,36 @@ export namespace EhayWebApi.Controllers {
     export const RfidCupInstance: RfidCupController = new RfidCupController();
 }
 ```
+
+### UseCamelPropertyName
+
+whether property name use the camel model.
+if true,  property name use the camel model.
+or elase, property name will reserve the original name;
+for exmaple, when UseCamelPropertyName = true
+
+```c#
+public class Entity 
+{
+   public string Name {get; set; 
+}
+```
+
+```typescript
+export class Entity {
+    constructor() { 
+        this.name = """";
+    }
+    name: Null_Or_String; // the Name would be name for camel mode.
+}
+```
+
+### LimitControlTypes
+
+Limit the control for export using the regex expression.
+If defined, the control wouldn't export when its namespace and name don't match this __LimitControlTypes__.
+But, if export an controller, its parent controller will ignore this LimitControlTypes value and exported.
+For example，LimitControlTypes=__Ehay[.]Controllers[.].*__  limit only export the controls whose namespace is Ehay.Controllers.
 
 ### AttrForExportModel
 

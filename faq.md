@@ -1,13 +1,14 @@
 
+<style>.md-toc {z-index: 999; display: block; position: fixed;left: 6px;top:10px;width:350px;word-wrap: break-word; /* word-break:break-all; */ overflow: scroll; } .md-toc-item { margin-right: 40px; }   </style>
 [TOC]
-# FAQ
+# 1. FAQ
 
-## What is NetAutoTsExport?
+## 1.1 What is NetAutoTsExport?
 
 NetAutoTsExport is a program that convert the service side action in a Net environment to a TypeScript code in http client according to the Json Configuration.  
 During the conversion process, it will try to avoid exporting classes that the action does not use for saving client code.
 
-## Why does the exported TypeScript code contain a large number of type definitions??
+## 1.2 Why does the exported TypeScript code contain a large number of type definitions??
 
 On the server side, a variable can be assigned a null when it points to a normal class;  
 But in TypeScript, there is no such mechanism;  
@@ -35,20 +36,20 @@ Then there's the class name, In and the namespace of class.
 For example, `Null_Or_DecoderFallbackInSystemText`.  
 However, if the class has a native type in TypeScript, use the Null_Or_ native type directly, such as the `Null_Or_String`.
 
-## What will be exported?
+## 1.3 What will be exported?
 
 The software scans all assemblies in a given directory, looking for all controllers and actions under the controllers.  
 Depending on Action, export the input parameters of Action and the type of return parameters to TypeScript, and export the controller and Action.  
 The software will also scan Xml files in a given directory, look for comments on the exported content, and export them to typeScript code.  
 
-## Why is the export divided into 2 files?
+## 1.4 Why is the export divided into 2 files?
 
 The exported TypeScript will be divided into 2 files.  
 One name is entity.ts, which holds all the types used by Action.  
 One name is control.ts, which holds all Controller and Action.
 The two files are divided into two files to enable users to use the classes in entity.ts alone without having to access control.ts.  
 
-## There is a class that is not used by any Action as an input/output parameter. Can I export it??
+## 1.5 There is a class that is not used by any Action as an input/output parameter. Can I export it??
 
 OK.
 Do as follows.  
@@ -86,7 +87,7 @@ public class ExportHolderForExport
 }
 ```
 
-## Is there a class that is used by one action as an input and output parameter, can it not be exported?
+## 1.6 Is there a class that is used by one action as an input and output parameter, can it not be exported?
 
 OK.
 a. Define a subclass of Attribute,  
@@ -113,14 +114,14 @@ public class ExportHolderForExcept
 }
 ```
 
-## Can I not export one Action or not export one Controller?
+## 1.7 Can I not export one Action or not export one Controller?
 
 OK.  
 a. Define a subclass of Attribute.  
 b. Assign the Attribute subclass to Action or Controller that you do not want to export.  
 c. Specify that the name of the Attribute subclass to the __AttrsForExceptProperty__ property in the export Json configuration.  
 
-## How will Dictionary<object, Entity > be exported?
+## 1.8 How will Dictionary<object, Entity > be exported?
 
 Dictionary&lt;object, OtherType> Will Be Exported To Any;  
 For Dictionary that can be mapped to a Record type, it is exported as Record;  
@@ -128,14 +129,14 @@ In TypeScript, Record supports string supports | number | The symbol record is t
 Therefore, for Dictionary<string, Entity>, Dictionary <number, Entity> types are exported as Record types.  
 All Dictionary is not exported as a map type because the map type cannot be serialized normally using JSON.stringify.  
 
-## How do I handle a controller route or a route on Action?
+## 1.9 How do I handle a controller route or a route on Action?
 
 Export software can correctly identify routes defined on Controller or Action.  
 RouteArea and RoutePrefix Attribute are also identified in the Asp.Net.  
 It also automatically resolves the default value specified on the route and, when the parameter value is not passed in, the default value specified on the route would be passed.  
 However, route constraints are not resolved.  
 
-## Can the description of the class, or class properties, or action, or Action parameters be exported?
+## 1.10 Can the description of the class, or class properties, or action, or Action parameters be exported?
 
 Yes.  
 By default, the software automatically scans the Xml in the assembly directory or the directory specified by AssemblyXmlDirPath in the Json export configuration.  
@@ -143,7 +144,7 @@ Description are automatically exported to the resulting TypeScript code.
 If you do not want to export comments, you can specify ExportRemark in the Json export configuration as false.  
 If exportRemark is not specified as false, but the description for the export target cannot be found, the "withour remark" is used as the description.
 
-## How does Action with the same name but different parameters export?
+## 1.11 How does Action with the same name but different parameters export?
 
 Action with the same name but different parameters needs to define different routes or HttpMethod;  
 However, methods with the same name but different parameters cannot be defined in TypeScript, so we can only define methods with multiple different names;  
@@ -200,28 +201,28 @@ export class TestAreaTestPrefixValuesController extends Hongbo.HongboRootControl
 }
 ```
 
-## Will the interface be exported?
+## 1.12 Will the interface be exported?
 
 By default, interfaces are not exported.  
 However, if the interface is the return parameter type of an Action, or if the interface is a property of a class to be exported, the interface is exported to the client.  
 Note, however, that for interfaces, the program does not consider the inheritance of the interface, but exports all the properties contained in the interface directly to avoid exporting too many interface definitions.  
 If the interface implemented by a class is exported as TypeScript, the code for the implement interface is added when the class is exported as TypeScript.  
 
-## Will the server-side-defined constants be exported?
+## 1.13 Will the server-side-defined constants be exported?
 
 No. The constant definition may be exported later.  
 
-## Will the enumeration type be exported? What will be the default value?
+## 1.14 Will the enumeration type be exported? What will be the default value?
 
 The enumeration type is exported.  
 By default, the property of the enumeration type will use the first value of the enumeration type as the default value for the enumerated property.  
 
-## If the constructor of the server-side class specifies a default value for the property, can this default value be exported when exported as TypeScript?
+## 1.15 If the constructor of the server-side class specifies a default value for the property, can this default value be exported when exported as TypeScript?
 
 Yes.  
 The software searches for an empty constructor for a class and builds an instance of the class based on it, exporting the property of that instance as the default value for the constructor corresponding to the property in typeScript code.
 
-## Can generic classes on the server side be exported?
+## 1.16 Can generic classes on the server side be exported?
 
 Yes.  
 TypeScript supports generic class definitions, but note that TypeScript does not support class definitions with the same name but with different number generic parameters.  
@@ -271,7 +272,7 @@ export class GenericEntity<TModel>
 }
 ```
 
-## Can I add a custom Header when I send a request to the server?
+## 1.17 Can I add a custom Header when I send a request to the server?
 
 OK.  
 Just call the __HongboRootControl.SetGlobalBeforeRequest__ function.  
@@ -298,7 +299,7 @@ Root.Hongbo.HongboRootControl.SetGlobalBeforeRequest((
 });
 ```
 
-## How do I make an action change request under a controller alone?
+## 1.18 How do I make an action change request under a controller alone?
 
 OK.
 Using an instance of the controller, you can call its __setRequestPrehandleFunction__ function.  
@@ -344,7 +345,7 @@ Root.TsGenAspnetExample.Controllers.NoAnyAttrWebapiInstance.setRequestPrehandleF
     }, Root.Hongbo.EnumPreHandleOption.beforeGlobal);
 ```
 
-## Can I intercept a response?
+## 1.19 Can I intercept a response?
 
 OK.  
 For simplicity, the program does not expose the underlying network response data, but simply returns the data that should be processed;  

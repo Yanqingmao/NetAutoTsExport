@@ -1,14 +1,44 @@
+
 [TOC]
 # NetAutoTsExport
 
 本程序能够将 Asp.Net 或者 .NetCore项目程序集下的控制器以及其输入、输出参数导出为 Typescript 客户端形式，以便于Http客户端调用;  
 __注意，本程序不是免费软件。__
+
+see __<https://yanqingmao.github.io/NetAutoTsExport/html/faq.zh-cn.html>__
   
 ## 程序版本
 
-本程序有三个版本，分别支持 __Asp.Net(4.5)__, __.NetCore(3.1)__, __.Net(5)__  
-不带任何参数时，程序将使用图形方式运行；  
-当带有指定配置信息的json文件时，程序将以命令行方式运行;
+本程序有三个版本
+
+### Asp.Net(4.5 Or Greater)  
+
+支持 .NetFramework 4.5 或者以上版本.
+
+https://yanqingmao.github.io/NetAutoTsExport/html/NetAutoTsExport_NetFramework_Console.zip 
+命令行方式，需要指定导出配置文件的路径.
+
+https://yanqingmao.github.io/NetAutoTsExport/html/NetAutoTsExport_NetFramework_WinForm.zip 
+Windows 窗口方式运行.
+
+### .NetCore3.1
+
+支持 .NetCore3.1 或者以下版本
+
+https://yanqingmao.github.io/NetAutoTsExport/html/NetAutoTsExport_NetCore3_Console.zip 
+命令行方式，需要指定导出配置文件的路径.
+
+https://yanqingmao.github.io/NetAutoTsExport/html/NetAutoTsExport_NetCore3_WinForm.zip 
+Windows 窗口方式运行.
+
+### .Net5
+
+支持 .Net5 或者以下版本
+https://yanqingmao.github.io/NetAutoTsExport/html/NetAutoTsExport_Net5_Console.zip 
+命令行方式，需要指定导出配置文件的路径.
+
+https://yanqingmao.github.io/NetAutoTsExport/html/NetAutoTsExport_Net5_WinForm.zip 
+Windows 窗口方式运行.
 
 ## Json配置参数说明
 
@@ -243,6 +273,38 @@ export namespace EhayWebApi.Controllers {
     export const RfidCupInstance: RfidCupController = new RfidCupController();
 }
 ```
+
+### UseCamelPropertyName
+
+导出类的属性名称是否使用 camel方式；  
+如果为 true, 类的属性名称使用 camel方式。  
+如果为 true, 类的属性保留原始名称。  
+例如， 如果 UseCamelPropertyName = true  
+
+```c#
+public class Entity 
+{
+   public string Name {get; set; 
+}
+```
+
+```typescript
+export class Entity {
+    constructor() { 
+        this.name = """";
+    }
+    name: Null_Or_String; // Name 将变为 name
+}
+```
+
+### LimitControlTypes
+
+限制需要导出的控制器，使用正则表达式方式。  
+如果定义有合法的正则表达式，则只有 "命名空间.类名称 " 匹配此正则表达式的控制器才会导出。  
+例如的是，如果某一个控制器需要导出，则其父控制器将忽略此限制而将一并导出。  
+例如，  
+`LimitControlTypes=__^Ehay[.]Controllers[.].*$`  
+限制只有 Ehay.Controllers 命名空间下的控制器才会导出。
 
 ### AttrForExportModel  
 
