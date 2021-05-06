@@ -14,32 +14,33 @@ see __<https://yanqingmao.github.io/NetAutoTsExport/html/faq.zh-cn.html>__
 
 ### 1.1.1 Asp.Net(4.5 Or Greater)  
 
-支持 .NetFramework 4.5 或者以上版本.
+支持 .NetFramework 4.5 或者以上版本.  
 
-https://yanqingmao.github.io/NetAutoTsExport/html/NetAutoTsExport_NetFramework_Console.zip 
-命令行方式，需要指定导出配置文件的路径.
+<https://yanqingmao.github.io/NetAutoTsExport/html/NetAutoTsExport_NetFramework_Console.zip>  
+命令行方式，需要指定导出配置文件的路径.  
 
-https://yanqingmao.github.io/NetAutoTsExport/html/NetAutoTsExport_NetFramework_WinForm.zip 
-Windows 窗口方式运行.
+<https://yanqingmao.github.io/NetAutoTsExport/html/NetAutoTsExport_NetFramework_WinForm.zip>  
+Windows 窗口方式运行.  
 
 ### 1.1.2 .NetCore3.1
 
-支持 .NetCore3.1 或者以下版本
+支持 .NetCore3.1 或者以下版本  
 
-https://yanqingmao.github.io/NetAutoTsExport/html/NetAutoTsExport_NetCore3_Console.zip 
-命令行方式，需要指定导出配置文件的路径.
+<https://yanqingmao.github.io/NetAutoTsExport/html/NetAutoTsExport_NetCore3_Console.zip>  
+命令行方式，需要指定导出配置文件的路径.  
 
-https://yanqingmao.github.io/NetAutoTsExport/html/NetAutoTsExport_NetCore3_WinForm.zip 
-Windows 窗口方式运行.
+<https://yanqingmao.github.io/NetAutoTsExport/html/NetAutoTsExport_NetCore3_WinForm.zip>  
+Windows 窗口方式运行.  
 
 ### 1.1.3 .Net5
 
-支持 .Net5 或者以下版本
-https://yanqingmao.github.io/NetAutoTsExport/html/NetAutoTsExport_Net5_Console.zip 
-命令行方式，需要指定导出配置文件的路径.
+支持 .Net5 或者以下版本  
 
-https://yanqingmao.github.io/NetAutoTsExport/html/NetAutoTsExport_Net5_WinForm.zip 
-Windows 窗口方式运行.
+<<https://yanqingmao.github.io/NetAutoTsExport/html/NetAutoTsExport_Net5_Console.zip>  
+命令行方式，需要指定导出配置文件的路径.  
+
+https://yanqingmao.github.io/NetAutoTsExport/html/NetAutoTsExport_Net5_WinForm.zip>  
+Windows 窗口方式运行.  
 
 ## 1.2 Json配置参数说明
 
