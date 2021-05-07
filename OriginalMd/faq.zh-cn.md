@@ -208,7 +208,7 @@ export class TestAreaTestPrefixValuesController extends Hongbo.HongboRootControl
 
 ## 服务器端定义的常量是否会导出?
 
-不会。后续可能会导出常量定义。
+默认下不会。如果设置 ExportConstDefine=true, 则会导出常量字段定义。
 
 ## 枚举类型是否会导出?枚举类型的属性默认值将会是什么?
 

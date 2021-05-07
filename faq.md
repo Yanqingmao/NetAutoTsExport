@@ -1,5 +1,5 @@
 
-<style>.md-toc {z-index: 999; display: block; position: fixed;left: 6px;top:10px;width:350px;word-wrap: break-word; /* word-break:break-all; */ overflow: scroll; } .md-toc-item { margin-right: 40px; }   </style>
+<style>#writer{padding-left: 350px;}.md-toc {z-index: 999; display: block; position: fixed;left: 6px;top:10px;width:350px;word-wrap: break-word; /* word-break:break-all; */ overflow: scroll; } .md-toc-item { margin-right: 40px; }   </style>
 [TOC]
 # 1. FAQ
 
@@ -212,7 +212,8 @@ If the interface implemented by a class is exported as TypeScript, the code for 
 
 ## 1.13 Will the server-side-defined constants be exported?
 
-No. The constant definition may be exported later.  
+Not export constant fields by default.  
+If you want export the constant fileds, you need set the ExportConstDefine to true in the export configuration json file.  
 
 ## 1.14 Will the enumeration type be exported? What will be the default value?
 

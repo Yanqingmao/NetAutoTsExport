@@ -1,5 +1,5 @@
 
-<style>.md-toc {z-index: 999; display: block; position: fixed;left: 6px;top:10px;width:350px;word-wrap: break-word; /* word-break:break-all; */ overflow: scroll; } .md-toc-item { margin-right: 40px; }   </style>
+<style>#writer{padding-left: 350px;}.md-toc {z-index: 999; display: block; position: fixed;left: 6px;top:10px;width:350px;word-wrap: break-word; /* word-break:break-all; */ overflow: scroll; } .md-toc-item { margin-right: 40px; }   </style>
 [TOC]
 # 1. NetAutoTsExport
 
@@ -300,7 +300,23 @@ export class Entity {
 }
 ```
 
-### 1.2.17 LimitControlTypes
+### 1.2.17 ExportConstDefine
+
+是否导出常量定义,默认为 false
+设置为 true,则导出常量定义;
+设置为false,则不导出常量定义;
+常量定义导出时，总是原始属性名称导出，而不会进行 camel 变化.
+例如,
+
+```typescript
+export class PropA {
+    static readonly ConstProp: string = ""Abc""; 
+    constructor() {
+    }
+}
+```
+
+### 1.2.18 LimitControlTypes
 
 限制需要导出的控制器，使用正则表达式方式。  
 如果定义有合法的正则表达式，则只有 "命名空间.类名称 " 匹配此正则表达式的控制器才会导出。  
@@ -309,7 +325,7 @@ export class Entity {
 `LimitControlTypes=__^Ehay[.]Controllers[.].*$`  
 限制只有 Ehay.Controllers 命名空间下的控制器才会导出。
 
-### 1.2.18 AttrForExportModel  
+### 1.2.19 AttrForExportModel  
 
 定义需要产生 TypeScript 定义的类的标注。默认为 null  
 当某一个类没有被任何 Action 通过输入输出参数 使用，默认下这个类不会产生 Typescript 定义。  
@@ -334,7 +350,7 @@ public class EntityAlwaysExport
 }
 ```
 
-### 1.2.19 AttrsForExceptProperty
+### 1.2.20 AttrsForExceptProperty
 
 定义产生 TypeScript 定义的类的标注。默认为 null；  
 当某个类被某一个 Action 作为输入输出参数使用时，默认将产生 TypeScript 定义。  
@@ -359,7 +375,7 @@ public class EntityAlwaysDontExport
 }
 ```
 
-### 1.2.20 AttrsForJsonResultTypes
+### 1.2.21 AttrsForJsonResultTypes
 
 定义某一个 Action 的输出类型。  
 当某一个 Action 返回 JsonResult 时，其返回类型只能转换为 any 类型。  
@@ -402,32 +418,32 @@ public class HomeController : Controller
 }
 ```
 
-### 1.2.21 SendRequestType  
+### 1.2.22 SendRequestType  
 
 发送 Http 请求的客户端库。 暂时支持如下的库。  
 
-#### 1.2.21.1 Axios
+#### 1.2.22.1 Axios
 
    see <http://www.axios-js.com/>  
 
-#### 1.2.21.2 Jquery
+#### 1.2.22.2 Jquery
 
    see <https://jquery.com/>  
 
-#### 1.2.21.3 BrowserFetch
+#### 1.2.22.3 BrowserFetch
 
    see <https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API>  
 
-#### 1.2.21.4 UniAppRequest
+#### 1.2.22.4 UniAppRequest
 
    see <https://uniapp.dcloud.io/api/README>  
 
-#### 1.2.21.5 WechatLittleApp  
+#### 1.2.22.5 WechatLittleApp  
 
    see <https://developers.weixin.qq.com/miniprogram/dev/api/>  
 
 不同的库，将会产生不同的 import 引用 和 发送请求的 TypeScript 代码；  
 
-### 1.2.22 ExportDirPath  
+### 1.2.23 ExportDirPath  
 
 定义导出的 TypeScript 文件的目录  

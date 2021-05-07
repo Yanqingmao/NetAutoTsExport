@@ -1,5 +1,5 @@
 
-<style>.md-toc {z-index: 999; display: block; position: fixed;left: 6px;top:10px;width:350px;word-wrap: break-word; /* word-break:break-all; */ overflow: scroll; } .md-toc-item { margin-right: 40px; }   </style>
+<style>#writer{padding-left: 350px;}.md-toc {z-index: 999; display: block; position: fixed;left: 6px;top:10px;width:350px;word-wrap: break-word; /* word-break:break-all; */ overflow: scroll; } .md-toc-item { margin-right: 40px; }   </style>
 [TOC]
 # 1. NetAutoTsExport
 
@@ -277,7 +277,7 @@ export namespace EhayWebApi.Controllers {
 
 ### 1.2.16 UseCamelPropertyName
 
-whether property name use the camel model.
+whether property name use the camel model; the default value is false.  
 if true,  property name use the camel model.
 or elase, property name will reserve the original name;
 for exmaple, when UseCamelPropertyName = true
@@ -298,14 +298,30 @@ export class Entity {
 }
 ```
 
-### 1.2.17 LimitControlTypes
+### 1.2.17 ExportConstDefine
+
+Whether export Const Property in entity or controller; the default value is false.  
+if set true, export const property in entity or controller;  
+or else, dont export.  
+The property of const will reserve the original name even if UseCamelPropertyName is set to true.  
+for example,  
+
+```typescript
+export class PropA {
+    static readonly ConstProp: string = ""Abc""; 
+    constructor() {
+    }
+}
+```
+
+### 1.2.18 LimitControlTypes
 
 Limit the control for export using the regex expression.
 If defined, the control wouldn't export when its namespace and name don't match this __LimitControlTypes__.
 But, if export an controller, its parent controller will ignore this LimitControlTypes value and exported.
 For example，LimitControlTypes=__Ehay[.]Controllers[.].*__  limit only export the controls whose namespace is Ehay.Controllers.
 
-### 1.2.18 AttrForExportModel
+### 1.2.19 AttrForExportModel
 
 Define attributes for export one type even if this type is not used by any action.  
 When a type is not accessed by an action with the in-out parameter, it would exported to TypeScript.  
@@ -329,7 +345,7 @@ public class EntityAlwaysExport
 }
 ```
 
-### 1.2.19 AttrsForExceptProperty
+### 1.2.20 AttrsForExceptProperty
 
 Define attributes for ignore one type even if this type is used by an a ction.  
 When a type is accessed by an action with the in-out parameter, it would exported to TypeScript.  
@@ -355,7 +371,7 @@ public class EntityAlwaysDontExport
 }
 ```
 
-### 1.2.20 AttrsForJsonResultTypes
+### 1.2.21 AttrsForJsonResultTypes
 
 Define attributes to assign an return type for an action.  
 The attribute should contain ResultType property.  
@@ -399,34 +415,34 @@ public class HomeController : Controller
 }
 ```
 
-### 1.2.21 SendRequestType  
+### 1.2.22 SendRequestType  
 
 How send the rquest to the server.  
 It supported the followed javascript library.
 
-#### 1.2.21.1 1. Axios
+#### 1.2.22.1 1. Axios
 
    see <http://www.axios-js.com/>  
 
-#### 1.2.21.2 2. Jquery
+#### 1.2.22.2 2. Jquery
 
    see <https://jquery.com/>  
 
-#### 1.2.21.3 3. BrowserFetch
+#### 1.2.22.3 3. BrowserFetch
 
    see <https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API>  
 
-#### 1.2.21.4 4. UniAppRequest
+#### 1.2.22.4 4. UniAppRequest
 
    see <https://uniapp.dcloud.io/api/README>  
 
-#### 1.2.21.5 5. WechatLittleApp  
+#### 1.2.22.5 5. WechatLittleApp  
 
    see <https://developers.weixin.qq.com/miniprogram/dev/api/>  
 
 Different library will produce different import and TypeScript code to send the request to server;
 
-### 1.2.22 ExportDirPath  
+### 1.2.23 ExportDirPath  
 
 assign directory to save the TypeScript file.  
 __Must Assign__  

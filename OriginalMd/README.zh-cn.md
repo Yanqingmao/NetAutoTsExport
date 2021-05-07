@@ -299,6 +299,22 @@ export class Entity {
 }
 ```
 
+### ExportConstDefine
+
+是否导出常量定义,默认为 false
+设置为 true,则导出常量定义;
+设置为false,则不导出常量定义;
+常量定义导出时，总是原始属性名称导出，而不会进行 camel 变化.
+例如,
+
+```typescript
+export class PropA {
+    static readonly ConstProp: string = ""Abc""; 
+    constructor() {
+    }
+}
+```
+
 ### LimitControlTypes
 
 限制需要导出的控制器，使用正则表达式方式。  

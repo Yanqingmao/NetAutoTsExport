@@ -98,7 +98,7 @@ def create_markdown_file_with_number(f,file_name):
     lines_in_file = []
     lines_in_file_with_number = []
     lines_in_file = f.readlines()
-    lines_in_file.insert(1, '''<style>.md-toc {z-index: 999; display: block; position: fixed;left: 6px;top:10px;width:350px;word-wrap: break-word; /* word-break:break-all; */ overflow: scroll; } .md-toc-item { margin-right: 40px; }   </style>
+    lines_in_file.insert(1, '''<style>#writer{padding-left: 350px;}.md-toc {z-index: 999; display: block; position: fixed;left: 6px;top:10px;width:350px;word-wrap: break-word; /* word-break:break-all; */ overflow: scroll; } .md-toc-item { margin-right: 40px; }   </style>
 ''')
     f.close()
     lines_in_file_with_number = create_lines_with_number(lines_in_file)

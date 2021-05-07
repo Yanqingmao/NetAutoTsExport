@@ -211,7 +211,8 @@ If the interface implemented by a class is exported as TypeScript, the code for 
 
 ## Will the server-side-defined constants be exported?
 
-No. The constant definition may be exported later.  
+Not export constant fields by default.  
+If you want export the constant fileds, you need set the ExportConstDefine to true in the export configuration json file.  
 
 ## Will the enumeration type be exported? What will be the default value?
 
