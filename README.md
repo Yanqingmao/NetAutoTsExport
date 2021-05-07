@@ -7,7 +7,8 @@ This program can export the controller and its action(include the parameter of i
 It will be very heplful to access the server action in browser.  
 __attension, this program is not free。__
 
-see __<https://yanqingmao.github.io/NetAutoTsExport/html/faq.html>__
+see __[Faq] <https://yanqingmao.github.io/NetAutoTsExport/html/faq.html>__  
+查看 __[中文版本 Readme] <https://yanqingmao.github.io/NetAutoTsExport/html/README.zh-cn.html>__  
 
 ## 1.1 Program Version
 

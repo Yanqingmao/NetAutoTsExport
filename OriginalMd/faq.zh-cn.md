@@ -2,6 +2,8 @@
 [TOC]
 # FAQ
 
+see __[English Faq] <https://yanqingmao.github.io/NetAutoTsExport/html/faq.html>__  
+
 ## 什么是 NetAutoTsExport
 
 NetAutoTsExport 是一个程序，它能根据Json输入设置将服务端 .Net环境下 Controller 中的 Action 转换为客户端的

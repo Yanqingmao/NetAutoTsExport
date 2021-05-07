@@ -2,6 +2,8 @@
 [TOC]
 # FAQ
 
+查看 __[中文Faq] <https://yanqingmao.github.io/NetAutoTsExport/html/faq.zh-cn.html>__  
+
 ## What is NetAutoTsExport?
 
 NetAutoTsExport is a program that convert the service side action in a Net environment to a TypeScript code in http client according to the Json Configuration.  
