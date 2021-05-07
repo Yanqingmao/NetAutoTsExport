@@ -40,10 +40,10 @@ Windows 窗口方式运行.
 
 支持 .Net5 或者以下版本  
 
-<<https://yanqingmao.github.io/NetAutoTsExport/html/NetAutoTsExport_Net5_Console.zip>  
+<https://yanqingmao.github.io/NetAutoTsExport/html/NetAutoTsExport_Net5_Console.zip>  
 命令行方式，需要指定导出配置文件的路径.  
 
-https://yanqingmao.github.io/NetAutoTsExport/html/NetAutoTsExport_Net5_WinForm.zip>  
+<https://yanqingmao.github.io/NetAutoTsExport/html/NetAutoTsExport_Net5_WinForm.zip>  
 Windows 窗口方式运行.  
 
 ## Json配置参数说明
