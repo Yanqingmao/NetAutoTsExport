@@ -1,5 +1,6 @@
 
 [TOC]
+
 # NetAutoTsExport
 
 This program can export the controller and its action(include the parameter of in or out) to TypeScript code.  
@@ -8,6 +9,9 @@ __attension, this program is not free。__
 
 see __[Faq] <https://yanqingmao.github.io/NetAutoTsExport/html/faq.html>__  
 查看 __[中文版本 Readme] <https://yanqingmao.github.io/NetAutoTsExport/html/README.zh-cn.html>__  
+  
+see __[Asp.Net Example Project]<https://github.com/Yanqingmao/NetAutoTsExport_AspNetExample)>__  
+see __[Use the exported TypeScript code in Vue Project]<https://github.com/Yanqingmao/NetAutoTsExport_VueExample)>__  
 
 ## Program Version
 
