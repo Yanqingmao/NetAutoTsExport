@@ -276,7 +276,7 @@ export namespace EhayWebApi.Controllers {
 
 ### UseCamelPropertyName
 
-whether property name use the camel model.
+whether property name use the camel model; the default value is false.  
 if true,  property name use the camel model.
 or elase, property name will reserve the original name;
 for exmaple, when UseCamelPropertyName = true
@@ -294,6 +294,22 @@ export class Entity {
         this.name = """";
     }
     name: Null_Or_String; // the Name would be name for camel mode.
+}
+```
+
+### ExportConstDefine
+
+Whether export Const Property in entity or controller; the default value is false.  
+if set true, export const property in entity or controller;  
+or else, dont export.  
+The property of const will reserve the original name even if UseCamelPropertyName is set to true.  
+for example,  
+
+```typescript
+export class PropA {
+    static readonly ConstProp: string = ""Abc""; 
+    constructor() {
+    }
 }
 ```
 
