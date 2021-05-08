@@ -11,7 +11,65 @@ NetAutoTsExport 是一个程序，它能根据Json输入设置将服务端 .Net�
 TypeScript 调用代码。  
 在转换过程中，它将尽量避免导出 Action 所不需要使用到的类以节省客户端代码。
 
-## 1.2 为什么导出的 TypeScript 包含大量的 type 定义?
+## 1.2 导出为什么会分为2个文件?
+
+导出的 TypeScript 将分为2个文件。  
+一个名称是 entity.ts, 存放所有被 Action 所使用到的类型。  
+一个名称是 control.ts, 存放所有的 Controller 和 Action。
+分为2个文件是为了能够让用户能够单独使用 entity.ts 中的类，而无需访问 control.ts。
+
+## 1.3 会导出哪些内容?
+
+软件将扫描给定目录下的所有程序集，从程序集中寻找所有的控制器和控制器下的Action，
+根据 Action，将 Action的输入参数和返回参数的类型导出到 TypeScript，并且将 控制器和Action导出。
+软件也将扫描给定目录下的Xml文件，寻找导出内容的注释内容，一并导出到 TypeScript代码中。
+
+如下命名空间中的类不会被导出:
+
+* System.Threading
+* System.Threading.Tasks
+* System.Web
+* System.Data.Entity
+* Microsoft.EntityFrameworkCore
+* System.Data.Entity.Infrastructure
+  
+另外， DbContext( __System.Data.Entity.DbContext__ 或者 __Microsoft.EntityFrameworkCore.DbContext__ ) 的子类也不会导出。
+
+## 1.4 默认加载的程序集?
+
+程序会默认加载其他的一些程序集。这些程序集和 EXE文件位于相同目录，使用 dll作为文件后缀。  
+如下所示：
+
+### 1.4.1 .Net Framework
+
+程序默认加载了如下程序集:
+
+* NewtonSoft.Json - 13.0.1
+* EntityFramework - 6.4.4
+* Antlr3.Runtime - 3.5.0.2 
+* Micorosoft.AspNet.WebApi - 5.2.7
+* Microsoft.AspNet.Mvc - 5.2.7
+* Microsoft.Aspnet.Razor - 3.2.7
+
+### 1.4.2 .NetCore 3.1
+
+程序默认加载了如下程序集:
+
+* Microsoft.EntityFrameworkCore - 3.1.5
+
+### 1.4.3 .Net5
+
+程序默认加载了如下程序集:
+
+* Microsoft.EntityFrameworkCore - 5.0.3
+
+## 1.5 默认加载的程序集和待扫描目录下特定版本程序集冲突时的解决方案
+
+当程序默认加载程序集和待扫描目录下存在相同名称程序集时，将会优先使用程序默认加载程序集。  
+这可能导致依赖性问题，如果待扫描目录下的其他程序集依赖更高版本或者特定版本而不依赖于程序默认加载程序集的版本。  
+如果存在这一的情况，请使用待扫描目录下的程序集覆盖程序下的程序集可解决此问题。
+
+## 1.6 为什么导出的 TypeScript 包含大量的 type 定义?
 
 在服务器端，当一个变量指向一个普通的 C#类时，这个变量可以赋值为 null;  
 但是在 TypeScript中，没有这种机制;  
@@ -39,31 +97,7 @@ export type Null_Or_DecoderFallbackInSystemText = Null_Or_<System.Text.DecoderFa
 然后是类名称 + In + 类的命名空间， 例如， Null_Or_DecoderFallbackInSystemText。  
 但如果类在 TypeScript 中有对应的原生类型，则直接使用 Null_Or_原生类型，例如 Null_Or_String 形式。
 
-## 1.3 会导出哪些内容?
-
-软件将扫描给定目录下的所有程序集，从程序集中寻找所有的控制器和控制器下的Action，
-根据 Action，将 Action的输入参数和返回参数的类型导出到 TypeScript，并且将 控制器和Action导出。
-软件也将扫描给定目录下的Xml文件，寻找导出内容的注释内容，一并导出到 TypeScript代码中。
-
-如下命名空间中的类不会被导出:
-
-* System.Threading
-* System.Threading.Tasks
-* System.Web
-* System.Data.Entity
-* Microsoft.EntityFrameworkCore
-* System.Data.Entity.Infrastructure
-  
-另外， DbContext( __System.Data.Entity.DbContext__ 或者 __Microsoft.EntityFrameworkCore.DbContext__ ) 也不会导出。
-
-## 1.4 导出为什么会分为2个文件?
-
-导出的 TypeScript 将分为2个文件。  
-一个名称是 entity.ts, 存放所有被 Action 所使用到的类型。  
-一个名称是 control.ts, 存放所有的 Controller 和 Action。
-分为2个文件是为了能够让用户能够单独使用 entity.ts 中的类，而无需访问 control.ts。
-
-## 1.5 有一个类未被任何 action 作为输入输出参数使用到，可以导出吗?
+## 1.7 有一个类未被任何 action 作为输入输出参数使用到，可以导出吗?
 
 可以。  
 a. 定义一个 Attribute 的子类，  
@@ -97,7 +131,7 @@ public class ExportHolderForExport
 }
 ```
 
-## 1.6 有一个类被某一个 action 作为输入输出参数使用到呢，可以不导出吗?
+## 1.8 有一个类被某一个 action 作为输入输出参数使用到呢，可以不导出吗?
 
 可以。
 a. 定义一个 Attribute 的子类，  
@@ -124,14 +158,14 @@ public class ExportHolderForExcept
 }
 ```
 
-## 1.7 可以不导出某一个 Action 或者不导出某一个 Controller 吗?
+## 1.9 可以不导出某一个 Action 或者不导出某一个 Controller 吗?
 
 可以。  
 a. 定义一个 Attribute 的子类。  
 b. 将 Attribute子类 指定到不想导出的 Action 或者 Controller 上。
 c. 指定 Attribute子类 的名称指定给 导出Json配置中的 __AttrsForExceptProperty__ 属性。  
 
-## 1.8 Dictionary<object, Entity> 形式将如何导出?
+## 1.10 Dictionary<object, Entity> 形式将如何导出?
 
 Dictionary<object, Entity>  将导出到 any;  
 而对于能够映射为 Record 类型的 Dictionary，则将导出为 Record;  
@@ -139,14 +173,14 @@ TypeScript 中， Record支持 string | number | symbol 作为 Record的键。
 所以，对于 Dictionary<string, Entity>, Dictionary<number, Entity> 类型的才会导出为 Record类型。  
 所有的 Dictionary 都不会导出为 map 类型，因为 map类型无法使用 JSON.stringify 正常进行序列化操作。
 
-## 1.9 如何处理控制器路由或者Action上的路由?
+## 1.11 如何处理控制器路由或者Action上的路由?
 
 导出软件能够正确识别定义在 Controller 上的路由 或者定义在 Action 上的路由。  
 在 Asp.Net中，还能识别 RouteArea 和 RoutePrefix Attribute。  
 并能够自动解析路由上指定的默认值，在未传入参数值时，自动传入路由上指定的默认值。  
 但不会解析路由约束。  
 
-## 1.10 类的说明、类属性说明、控制器说明、Action说明、Action参数说明能否导出?
+## 1.12 类的说明、类属性说明、控制器说明、Action说明、Action参数说明能否导出?
 
 能。  
 默认下，软件将自动扫描程序集目录下的 Xml 或者 Json导出配置中 AssemblyXmlDirPath 指定的目录，  
@@ -154,7 +188,7 @@ TypeScript 中， Record支持 string | number | symbol 作为 Record的键。
 如果不想导出注释，可以指定 Json导出配置中的 ExportRemark 为 false。  
 如果没有指定 ExportRemark 为 false, 但是找不到导出目标的注释时，将使用 withour remark 字符串作为注释。 
 
-## 1.11 同名但是参数不同的 Action 如何导出?
+## 1.13 同名但是参数不同的 Action 如何导出?
 
 同名但是参数不同的 Action 需要定义有不同的路由或者 HttpMethod;  
 但是在 TypeScript 中不能定义同名但是参数不同的方法，因此我们只能定义多个不同名称的方法；  
@@ -211,28 +245,28 @@ export class TestAreaTestPrefixValuesController extends Hongbo.HongboRootControl
 }
 ```
 
-## 1.12 接口是否会导出?
+## 1.14 接口是否会导出?
 
 默认情况下，接口不会导出。
 但如果接口作为某一个 Action 的返回参数类型，或者接口作为某一个待导出类的属性时，接口将会导出到客户端。  
 但注意，对于接口,程序不会考虑接口的继承性，而是直接导出接口所包含的所有属性直接导出，以避免导出太多的接口定义。  
 如果某一个类所实现的接口会导出为 TypeScript，则类导出为 TypeScript时，将会添加 implements 此接口的代码。
 
-## 1.13 服务器端定义的常量是否会导出?
+## 1.15 服务器端定义的常量是否会导出?
 
 默认下不会。如果设置 ExportConstDefine=true, 则会导出常量字段定义。
 
-## 1.14 枚举类型是否会导出?枚举类型的属性默认值将会是什么?
+## 1.16 枚举类型是否会导出?枚举类型的属性默认值将会是什么?
 
 枚举类型会导出。
 枚举类型的属性将会使用枚举类型的第一个值作为枚举属性的默认值。
 
-## 1.15 如果服务器端类的构造函数给属性指定了默认值,导出为 TypeScript 时,此默认值能否导出?
+## 1.17 如果服务器端类的构造函数给属性指定了默认值,导出为 TypeScript 时,此默认值能否导出?
 
 能。  
 软件将搜索类的空构造函数，并根据此构造函数构建类的实例，在导出时将此实例的属性作为 TypeScript 代码中的构造函数对应属性的默认值。
 
-## 1.16 服务器端的泛型类能否导出?
+## 1.18 服务器端的泛型类能否导出?
 
 能。  
 TypeScript支持泛型类定义，但是注意，TypeScript不支持同名但是带不同个数泛型参数的类定义。  
@@ -282,7 +316,7 @@ export class GenericEntity<TModel>
 }
 ```
 
-## 1.17 在向服务器发送请求时, 是否可以添加自定义的 Header?
+## 1.19 在向服务器发送请求时, 是否可以添加自定义的 Header?
 
 可以。  
 调用  __HongboRootControl.SetGlobalBeforeRequest__ 函数即可。
@@ -309,7 +343,7 @@ Root.Hongbo.HongboRootControl.SetGlobalBeforeRequest((
 });
 ```
 
-## 1.18 单独给某一个控制器下的 action 变更请求？
+## 1.20 单独给某一个控制器下的 action 变更请求？
 
 可以。
 使用控制器的实例，调用其 setRequestPrehandleFunction 函数即可。
@@ -352,7 +386,7 @@ Root.TsGenAspnetExample.Controllers.NoAnyAttrWebapiInstance.setRequestPrehandleF
 }, Root.Hongbo.EnumPreHandleOption.beforeGlobal);
 ```
 
-## 1.19 能否拦截响应?
+## 1.21 能否拦截响应?
 
 可以.  
 为简单起见，程序不会暴露底层的网络响应数据,而只是返回应该处理的 data;  

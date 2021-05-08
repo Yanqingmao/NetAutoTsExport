@@ -9,6 +9,58 @@
 NetAutoTsExport is a program that convert the service side action in a Net environment to a TypeScript code in http client according to the Json Configuration.  
 During the conversion process, it will try to avoid exporting classes that the action does not use for saving client code.
 
+## Why is the export divided into 2 files?
+
+The exported TypeScript will be divided into 2 files.  
+One name is entity.ts, which holds all the types used by Action.  
+One name is control.ts, which holds all Controller and Action.
+The two files are divided into two files to enable users to use the classes in entity.ts alone without having to access control.ts.  
+
+## What will be exported?
+
+The software scans all assemblies in a given directory, looking for all controllers and actions under the controllers.  
+Depending on Action, export the input parameters of Action and the type of return parameters to TypeScript, and export the controller and Action.  
+The software will also scan Xml files in a given directory, look for comments on the exported content, and export them to typeScript code.  
+The types in follows Namespace will not exported:
+
+* System.Threading
+* System.Threading.Tasks
+* System.Web
+* System.Data.Entity
+* Microsoft.EntityFrameworkCore
+* System.Data.Entity.Infrastructure
+  
+and subtype of __System.Data.Entity.DbContext__ or __Microsoft.EntityFrameworkCore.DbContext__ will not exported.
+
+## Assemblys loaded when this program start?
+
+This program would load some assemblys.  These assemblys is located the same director of program and appenxed with "dll".  
+As follows,
+
+### .Net Framework
+
+* Name              Version
+* NewtonSoft.Json          - 13.0.1
+* EntityFramework          - 6.4.4
+* Antlr3.Runtime           - 3.5.0.2
+* Micorosoft.AspNet.WebApi - 5.2.7
+* Microsoft.AspNet.Mvc     - 5.2.7
+* Microsoft.Aspnet.Razor   - 3.2.7
+
+### .NetCore 3.1
+
+* Microsoft.EntityFrameworkCore - 3.1.5
+
+### .Net5
+
+* Microsoft.EntityFrameworkCore - 5.0.3
+
+## How solve the conflicts when exists the assembly with same name but different version?
+
+The program default loader assembly is preferred when an assembly with the same name as the program default loader exists in the directory to be scanned.  
+This can cause dependency problems if other assemblies in the directory to be scanned depend on a higher version or a specific version rather than the version of the program's default loader assembly.  
+If this happend, override the assembly under the NetAutoTsExport program using the assembly in the directory to be scanned to resolve the problem.
+
 ## Why does the exported TypeScript code contain a large number of type definitions??
 
 On the server side, a variable can be assigned a null when it points to a normal class;  
@@ -36,29 +88,6 @@ All type definitions will use Null_Or_ as a prefix.
 Then there's the class name, In and the namespace of class.  
 For example, `Null_Or_DecoderFallbackInSystemText`.  
 However, if the class has a native type in TypeScript, use the Null_Or_ native type directly, such as the `Null_Or_String`.
-
-## What will be exported?
-
-The software scans all assemblies in a given directory, looking for all controllers and actions under the controllers.  
-Depending on Action, export the input parameters of Action and the type of return parameters to TypeScript, and export the controller and Action.  
-The software will also scan Xml files in a given directory, look for comments on the exported content, and export them to typeScript code.  
-The types in follows Namespace will not exported:
-
-* System.Threading
-* System.Threading.Tasks
-* System.Web
-* System.Data.Entity
-* Microsoft.EntityFrameworkCore
-* System.Data.Entity.Infrastructure
-  
-and subtype of __System.Data.Entity.DbContext__ or __Microsoft.EntityFrameworkCore.DbContext__ will not exported.
-
-## Why is the export divided into 2 files?
-
-The exported TypeScript will be divided into 2 files.  
-One name is entity.ts, which holds all the types used by Action.  
-One name is control.ts, which holds all Controller and Action.
-The two files are divided into two files to enable users to use the classes in entity.ts alone without having to access control.ts.  
 
 ## There is a class that is not used by any Action as an input/output parameter. Can I export it??
 

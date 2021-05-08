@@ -10,6 +10,64 @@ NetAutoTsExport 是一个程序，它能根据Json输入设置将服务端 .Net�
 TypeScript 调用代码。  
 在转换过程中，它将尽量避免导出 Action 所不需要使用到的类以节省客户端代码。
 
+## 导出为什么会分为2个文件?
+
+导出的 TypeScript 将分为2个文件。  
+一个名称是 entity.ts, 存放所有被 Action 所使用到的类型。  
+一个名称是 control.ts, 存放所有的 Controller 和 Action。
+分为2个文件是为了能够让用户能够单独使用 entity.ts 中的类，而无需访问 control.ts。
+
+## 会导出哪些内容?
+
+软件将扫描给定目录下的所有程序集，从程序集中寻找所有的控制器和控制器下的Action，
+根据 Action，将 Action的输入参数和返回参数的类型导出到 TypeScript，并且将 控制器和Action导出。
+软件也将扫描给定目录下的Xml文件，寻找导出内容的注释内容，一并导出到 TypeScript代码中。
+
+如下命名空间中的类不会被导出:
+
+* System.Threading
+* System.Threading.Tasks
+* System.Web
+* System.Data.Entity
+* Microsoft.EntityFrameworkCore
+* System.Data.Entity.Infrastructure
+  
+另外， DbContext( __System.Data.Entity.DbContext__ 或者 __Microsoft.EntityFrameworkCore.DbContext__ ) 的子类也不会导出。
+
+## 默认加载的程序集?
+
+程序会默认加载其他的一些程序集。这些程序集和 EXE文件位于相同目录，使用 dll作为文件后缀。  
+如下所示：
+
+### .Net Framework
+
+程序默认加载了如下程序集:
+
+* NewtonSoft.Json - 13.0.1
+* EntityFramework - 6.4.4
+* Antlr3.Runtime - 3.5.0.2 
+* Micorosoft.AspNet.WebApi - 5.2.7
+* Microsoft.AspNet.Mvc - 5.2.7
+* Microsoft.Aspnet.Razor - 3.2.7
+
+### .NetCore 3.1
+
+程序默认加载了如下程序集:
+
+* Microsoft.EntityFrameworkCore - 3.1.5
+
+### .Net5
+
+程序默认加载了如下程序集:
+
+* Microsoft.EntityFrameworkCore - 5.0.3
+
+## 默认加载的程序集和待扫描目录下特定版本程序集冲突时的解决方案
+
+当程序默认加载程序集和待扫描目录下存在相同名称程序集时，将会优先使用程序默认加载程序集。  
+这可能导致依赖性问题，如果待扫描目录下的其他程序集依赖更高版本或者特定版本而不依赖于程序默认加载程序集的版本。  
+如果存在这一的情况，请使用待扫描目录下的程序集覆盖程序下的程序集可解决此问题。
+
 ## 为什么导出的 TypeScript 包含大量的 type 定义?
 
 在服务器端，当一个变量指向一个普通的 C#类时，这个变量可以赋值为 null;  
@@ -37,30 +95,6 @@ export type Null_Or_DecoderFallbackInSystemText = Null_Or_<System.Text.DecoderFa
 所有的 type 定义都将使用 Null_Or_作为前缀，  
 然后是类名称 + In + 类的命名空间， 例如， Null_Or_DecoderFallbackInSystemText。  
 但如果类在 TypeScript 中有对应的原生类型，则直接使用 Null_Or_原生类型，例如 Null_Or_String 形式。
-
-## 会导出哪些内容?
-
-软件将扫描给定目录下的所有程序集，从程序集中寻找所有的控制器和控制器下的Action，
-根据 Action，将 Action的输入参数和返回参数的类型导出到 TypeScript，并且将 控制器和Action导出。
-软件也将扫描给定目录下的Xml文件，寻找导出内容的注释内容，一并导出到 TypeScript代码中。
-
-如下命名空间中的类不会被导出:
-
-* System.Threading
-* System.Threading.Tasks
-* System.Web
-* System.Data.Entity
-* Microsoft.EntityFrameworkCore
-* System.Data.Entity.Infrastructure
-  
-另外， DbContext( __System.Data.Entity.DbContext__ 或者 __Microsoft.EntityFrameworkCore.DbContext__ ) 也不会导出。
-
-## 导出为什么会分为2个文件?
-
-导出的 TypeScript 将分为2个文件。  
-一个名称是 entity.ts, 存放所有被 Action 所使用到的类型。  
-一个名称是 control.ts, 存放所有的 Controller 和 Action。
-分为2个文件是为了能够让用户能够单独使用 entity.ts 中的类，而无需访问 control.ts。
 
 ## 有一个类未被任何 action 作为输入输出参数使用到，可以导出吗?
 
