@@ -29,9 +29,9 @@ entityProp 将是 undefined。
 export type Null_Or_<TElement> =  null | TElement;
 // 默认导出
 export type Null_Or_ArrayGeneral<TElement> =  Null_Or_<Array<TElement>>;
-// 在 中定义 空或者 string
+// 定义 空或者 string
 export type Null_Or_String = null | string;
-// 在 中定义 空或者 System.Text.DecoderFallback
+// 定义 空或者 System.Text.DecoderFallback
 export type Null_Or_DecoderFallbackInSystemText = Null_Or_<System.Text.DecoderFallback>;
 ```
 
@@ -44,6 +44,17 @@ export type Null_Or_DecoderFallbackInSystemText = Null_Or_<System.Text.DecoderFa
 软件将扫描给定目录下的所有程序集，从程序集中寻找所有的控制器和控制器下的Action，
 根据 Action，将 Action的输入参数和返回参数的类型导出到 TypeScript，并且将 控制器和Action导出。
 软件也将扫描给定目录下的Xml文件，寻找导出内容的注释内容，一并导出到 TypeScript代码中。
+
+如下命名空间中的类不会被导出:
+
+* System.Threading
+* System.Threading.Tasks
+* System.Web
+* System.Data.Entity
+* Microsoft.EntityFrameworkCore
+* System.Data.Entity.Infrastructure
+  
+另外， DbContext( __System.Data.Entity.DbContext__ 或者 __Microsoft.EntityFrameworkCore.DbContext__ ) 也不会导出。
 
 ## 1.4 导出为什么会分为2个文件?
 

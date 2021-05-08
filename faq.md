@@ -43,6 +43,16 @@ However, if the class has a native type in TypeScript, use the Null_Or_ native t
 The software scans all assemblies in a given directory, looking for all controllers and actions under the controllers.  
 Depending on Action, export the input parameters of Action and the type of return parameters to TypeScript, and export the controller and Action.  
 The software will also scan Xml files in a given directory, look for comments on the exported content, and export them to typeScript code.  
+The types in follows Namespace will not exported:
+
+* System.Threading
+* System.Threading.Tasks
+* System.Web
+* System.Data.Entity
+* Microsoft.EntityFrameworkCore
+* System.Data.Entity.Infrastructure
+  
+and subtype of __System.Data.Entity.DbContext__ or __Microsoft.EntityFrameworkCore.DbContext__ will not exported.
 
 ## 1.4 Why is the export divided into 2 files?
 
@@ -201,7 +211,7 @@ export class TestAreaTestPrefixValuesController extends Hongbo.HongboRootControl
         return this.callAction(actionInfo);
     }    
 }
-```
+```  
 
 ## 1.12 Will the interface be exported?
 
