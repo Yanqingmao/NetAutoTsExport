@@ -5,11 +5,10 @@
 # 1. NetAutoTsExport
 
 本程序能够将 Asp.Net 或者 .NetCore项目程序集下的控制器以及其输入、输出参数导出为 Typescript 客户端形式，以便于Http客户端调用;  
-__注意，本程序不是免费软件。__
 
  查看 __[Faq] <https://yanqingmao.github.io/NetAutoTsExport/html/faq.zh-cn.html>__  
 see __[English Readme] <https://yanqingmao.github.io/NetAutoTsExport/html/README.html>__  
-
+  
 see __[Asp.Net Example Project]<https://github.com/Yanqingmao/NetAutoTsExport_AspNetExample>__  
 see __[Use the exported TypeScript code in Vue Project]<https://github.com/Yanqingmao/NetAutoTsExport_VueExample>__  
 
